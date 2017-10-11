@@ -9,13 +9,15 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
+import {ManageFoodPage} from "../pages/manage-food/manage-food";
 
 @NgModule({
   declarations: [
     MyApp,
     AppHeaderComponent,
     HomePage,
-    ListPage
+    ListPage,
+    ManageFoodPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    ManageFoodPage
   ],
   providers: [
     StatusBar,
