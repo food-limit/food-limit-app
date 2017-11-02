@@ -1,0 +1,34 @@
+page-list-food {
+  #modal-add-food {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    text-align: center;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+  }
+
+  .btn-add-food {
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    font-size: 17px;
+    margin-left: -35px;
+  }
+
+  #btn-add-food-text {
+    bottom: 220px;
+  }
+
+  #btn-add-food-audio {
+    bottom: 130px;
+  }
+
+  #btn-add-food-scan {
+    bottom: 40px;
+  }
+}

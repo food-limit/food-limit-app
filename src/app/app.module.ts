@@ -12,9 +12,9 @@ import {Storage, IonicStorageModule} from "@ionic/storage";
 import {JwtHelper, AuthConfig, AuthHttp} from "angular2-jwt";
 import {Http, HttpModule, RequestOptions} from "@angular/http";
 import {AuthProvider} from "../providers/auth/auth";
-import { ManageFoodPage } from '../pages/manage-food/manage-food';
-import { ListPage } from '../pages/list/list';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
+import {ListFoodPage} from "../pages/list-food/list-food";
+import {FoodService} from "./providers/food.service";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, storage: Storage) {
   const authConfig = new AuthConfig({
@@ -28,8 +28,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
     MyApp,
     AppHeaderComponent,
     HomePage,
-    ManageFoodPage,
-    ListPage,
+    ListFoodPage,
     LoginPage,
     SignupPage
   ],
@@ -44,8 +43,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
   entryComponents: [
     MyApp,
     HomePage,
-    ManageFoodPage,
-    ListPage,
+    ListFoodPage,
     LoginPage,
     SignupPage
   ],
@@ -58,7 +56,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions, Storage]
-    }]
+    },
+    FoodService
+  ],
 })
 export class AppModule {
 }

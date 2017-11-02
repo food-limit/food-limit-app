@@ -27,3 +27,11 @@
   border-bottom: 0 !important;
   color: red;
 }
+
+.btn-fixed-bottom {
+  position: fixed;
+  bottom: 10px;
+  width: 90%;
+  right: 5%;
+  left: 5%;
+}

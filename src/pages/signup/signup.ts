@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {LoadingController, ToastController} from 'ionic-angular';
-import {NgModel} from "@angular/forms";
+import {NgModel} from '@angular/forms';
 import {AuthProvider} from "../../providers/auth/auth";
 import "rxjs/add/operator/finally";
 
