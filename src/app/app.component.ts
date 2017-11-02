@@ -5,8 +5,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {HomePage} from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
 import {AuthProvider} from "../providers/auth/auth";
-import { ListPage } from '../pages/list/list';
-import { ManageFoodPage } from '../pages/manage-food/manage-food';
+import {ListFoodPage} from "../pages/list-food/list-food";
 
 @Component({
   templateUrl: 'app.html'
@@ -29,8 +28,7 @@ export class MyApp {
 
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Gestion de mes aliments', component: ManageFoodPage }
+      { title: 'Gestion de mes aliments', component: ListFoodPage }
     ];
 
     authProvider.authUser.subscribe(jwt => {
