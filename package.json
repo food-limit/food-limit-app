@@ -25,6 +25,7 @@
     "@ionic/storage": "2.0.1",
     "angular2-jwt": "^0.2.3",
     "cordova-android": "^6.3.0",
+    "cordova-ios": "4.5.3",
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-device": "^1.1.6",
     "cordova-plugin-splashscreen": "^4.0.3",

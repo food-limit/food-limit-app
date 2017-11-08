@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
-import {MyApp} from './app.component';
+import {FoodLimitApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -25,7 +25,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
 
 @NgModule({
   declarations: [
-    MyApp,
+    FoodLimitApp,
     AppHeaderComponent,
     HomePage,
     ManageFoodPage,
@@ -36,13 +36,13 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(FoodLimitApp),
     IonicStorageModule.forRoot(),
     CustomFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    FoodLimitApp,
     HomePage,
     ManageFoodPage,
     ListPage,

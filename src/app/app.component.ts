@@ -11,7 +11,7 @@ import { ManageFoodPage } from '../pages/manage-food/manage-food';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class FoodLimitApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = null;
