@@ -16,6 +16,7 @@ import {AuthProvider} from "../providers/auth/auth";
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 import {ListFoodPage} from "../pages/list-food/list-food";
 import {FoodService} from "./providers/food.service";
+import {SpeechRecognition} from "@ionic-native/speech-recognition";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, storage: Storage) {
   const authConfig = new AuthConfig({
@@ -53,6 +54,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
+    SpeechRecognition,
     JwtHelper, {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

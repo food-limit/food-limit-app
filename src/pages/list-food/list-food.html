@@ -32,7 +32,7 @@
   <button ion-button icon-only round color="light" id="btn-add-food-text" class="btn-add-food">
     <ion-icon name="create"></ion-icon>
   </button>
-  <button ion-button icon-only round color="light" id="btn-add-food-audio" class="btn-add-food">
+  <button ion-button icon-only round color="light" id="btn-add-food-audio" (click)="_addFoodListening()" class="btn-add-food">
     <ion-icon name="mic"></ion-icon>
   </button>
   <button ion-button icon-only round color="light" id="btn-add-food-scan" class="btn-add-food" (click)="_scanBarcode()">

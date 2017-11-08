@@ -10,6 +10,8 @@ export class FoodService {
   private _foodList: Food[];
   public static OUTPAN_API_KEY = '1d8ce0505a943cef4270e978410e9fbc';
 
+  private counter: number = 0;
+
   constructor(private http: Http) {
 
   }
@@ -17,21 +19,21 @@ export class FoodService {
   public loadFoods(): void {
     this._foodList = [
       Object.assign(new Food(), {
-        id: 1,
+        id: this.counter++,
         name: "banane",
         dlc: new Date(5,10,2017),
         quantity: 2,
         picture: ""
       }),
       Object.assign(new Food(), {
-        id: 2,
+        id: this.counter++,
         name: "cornichon",
         dlc: new Date(5,10,2018),
         quantity: 1,
         picture: ""
       }),
       Object.assign(new Food(), {
-        id: 3,
+        id: this.counter++,
         name: "salade",
         dlc: new Date(5,10,2018),
         quantity: 1,
@@ -47,6 +49,7 @@ export class FoodService {
   }
 
   public createFood(food: Food): void {
+    food.id = this.counter++;
     this._foodList.push(food);
     this.foods$.next(this._foodList);
   }
