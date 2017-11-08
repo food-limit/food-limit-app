@@ -5,6 +5,7 @@ import {FoodLimitApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import {LoginPage} from "../pages/login/login";
 import {SignupPage} from "../pages/signup/signup";
 import {CustomFormsModule} from 'ng2-validation'
@@ -57,7 +58,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions, Storage]
     },
-    FoodService
+    FoodService,
+    BarcodeScanner
   ],
 })
 export class AppModule {
