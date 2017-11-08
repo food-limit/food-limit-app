@@ -1,5 +1,5 @@
 export class Food {
-  barcode: string;
+  id: number;
   name: string;
   dlc: Date;
   quantity: number;

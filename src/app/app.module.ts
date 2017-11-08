@@ -1,10 +1,11 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
-import {MyApp} from './app.component';
+import {FoodLimitApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import {LoginPage} from "../pages/login/login";
 import {SignupPage} from "../pages/signup/signup";
 import {CustomFormsModule} from 'ng2-validation'
@@ -26,7 +27,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
 
 @NgModule({
   declarations: [
-    MyApp,
+    FoodLimitApp,
     AppHeaderComponent,
     HomePage,
     ListFoodPage,
@@ -36,13 +37,13 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(FoodLimitApp),
     IonicStorageModule.forRoot(),
     CustomFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    FoodLimitApp,
     HomePage,
     ListFoodPage,
     LoginPage,
@@ -59,7 +60,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions, Storage]
     },
-    FoodService
+    FoodService,
+    BarcodeScanner
   ],
 })
 export class AppModule {

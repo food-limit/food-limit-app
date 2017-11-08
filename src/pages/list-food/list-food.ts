@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angula
 import {FoodService} from "../../app/providers/food.service";
 import {Food} from "../../app/model/food.model";
 import {SpeechRecognition} from "@ionic-native/speech-recognition";
+import { BarcodeScanResult, BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 /**
  * Generated class for the ListFoodPage page.
@@ -21,7 +22,14 @@ export class ListFoodPage {
 
   public REGEX_CHECK_FOOD: RegExp = /[a-zA-Z]{3,}\s[0-9]{1,2}\s([0-9]{1,2}|janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre)\s[0-9]{4}/;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private readonly toastCtrl: ToastController, private _foodService: FoodService, private _speechRecognition: SpeechRecognition) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private _foodService: FoodService,
+    private _barcode: BarcodeScanner,
+    private _speechRecognition: SpeechRecognition,
+    private readonly toastCtrl: ToastController) {
+
     this._foodService.loadFoods();
   }
 
@@ -59,11 +67,11 @@ export class ListFoodPage {
     this._getPermissionRecognition();
     this._speechRecognition.startListening().subscribe(matches => {
       let correctMatches = matches.filter(match => this.REGEX_CHECK_FOOD.test(match));
-      if(correctMatches.length > 0){
+      if (correctMatches.length > 0) {
         let food: Food = new Food();
         let date: string[] = matches[0].split(" ");
         food.name = date[0];
-        food.dlc = new Date(parseInt(date[3]), parseInt(date[2])-1, parseInt(date[1]));
+        food.dlc = new Date(parseInt(date[3]), parseInt(date[2]) - 1, parseInt(date[1]));
         this._foodService.createFood(food);
       } else {
         let message: string = "Aliment non reconnu !";
@@ -75,6 +83,20 @@ export class ListFoodPage {
 
         toast.present();
       }
+    });
+  }
+
+  private _scanBarcode(): void {
+    const food: Food = new Food();
+    this._closeModalAddFood();
+    this._barcode.scan().then((scanResult: BarcodeScanResult) => {
+      this._foodService.getFoodInfos(scanResult.text).subscribe((res: any) => {
+        food.name = res.json().name;
+        food.quantity = 1;
+        food.dlc = new Date();
+        food.picture = null;
+        this._foodService.createFood(food);
+      });
     });
   }
 }

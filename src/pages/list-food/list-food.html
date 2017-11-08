@@ -24,7 +24,7 @@
     </ion-item-sliding>
   </ion-list>
 
-  <button ion-button color="primary" class="btn-fixed-bottom" full (click)="_openModalAddFood()">Ajouter un alliment</button>
+  <button ion-button color="primary" class="btn-fixed-bottom" full (click)="_openModalAddFood()">Ajouter un aliment</button>
 </ion-content>
 
 
@@ -35,7 +35,7 @@
   <button ion-button icon-only round color="light" id="btn-add-food-audio" (click)="_addFoodListening()" class="btn-add-food">
     <ion-icon name="mic"></ion-icon>
   </button>
-  <button ion-button icon-only round color="light" id="btn-add-food-scan" class="btn-add-food">
+  <button ion-button icon-only round color="light" id="btn-add-food-scan" class="btn-add-food" (click)="_scanBarcode()">
     <ion-icon name="qr-scanner"></ion-icon>
   </button>
 </div>
