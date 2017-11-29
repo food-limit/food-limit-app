@@ -21,21 +21,21 @@ export class FoodService {
       Object.assign(new Food(), {
         id: this.counter++,
         name: "banane",
-        dlc: new Date(5,10,2017),
+        dlc: new Date(2017,10,5).toISOString(),
         quantity: 2,
         picture: ""
       }),
       Object.assign(new Food(), {
         id: this.counter++,
         name: "cornichon",
-        dlc: new Date(5,10,2018),
+        dlc: new Date(2018,11,17).toISOString(),
         quantity: 1,
         picture: ""
       }),
       Object.assign(new Food(), {
         id: this.counter++,
         name: "salade",
-        dlc: new Date(5,10,2018),
+        dlc: new Date(2018,10,18).toISOString(),
         quantity: 1,
         picture: ""
       })

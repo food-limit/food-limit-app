@@ -7,7 +7,7 @@
     <!--<ion-item-divider color="light">Mes alliments</ion-item-divider>-->
     <ion-item-sliding *ngFor="let food of _foodService.foods$ | async">
       <ion-item>
-        <p>{{food.name}}</p> <p item-right>{{food.dlc.toDateString()}}</p>
+        <p>{{food.name}}</p> <p item-right>{{food.dlc | date:'dd/MM/yyyy'}}</p>
       </ion-item>
 
       <ion-item-options side="right">

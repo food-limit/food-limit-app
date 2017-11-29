@@ -71,7 +71,7 @@ export class ListFoodPage {
         let food: Food = new Food();
         let date: string[] = matches[0].split(" ");
         food.name = date[0];
-        food.dlc = new Date(parseInt(date[3]), parseInt(date[2]) - 1, parseInt(date[1]));
+        food.dlc = new Date(parseInt(date[3]), parseInt(date[2]) - 1, parseInt(date[1])).toISOString();
         this._foodService.createFood(food);
       } else {
         let message: string = "Aliment non reconnu !";
@@ -92,7 +92,7 @@ export class ListFoodPage {
       this._foodService.getFoodInfos(scanResult.text).subscribe((res: any) => {
         food.name = res.json().name;
         food.quantity = 1;
-        food.dlc = new Date();
+        food.dlc = new Date().toISOString();
         food.picture = null;
         this._foodService.createFood(food);
       });
