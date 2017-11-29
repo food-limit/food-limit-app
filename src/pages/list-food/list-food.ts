@@ -29,7 +29,6 @@ export class ListFoodPage {
     private _barcode: BarcodeScanner,
     private _speechRecognition: SpeechRecognition,
     private readonly toastCtrl: ToastController) {
-
     this._foodService.loadFoods();
   }
 
@@ -42,12 +41,13 @@ export class ListFoodPage {
   }
 
   private _viewFood(food: Food): void {
-    console.log("food",food);
     this.navCtrl.push("DetailFoodPage");
   }
 
   private _editFood(food: Food): void {
-
+    this.navCtrl.push("EditFoodPage", {
+      'id': food.id
+    })
   }
 
   private _deleteFood(food: Food): void {
@@ -80,7 +80,6 @@ export class ListFoodPage {
           duration: 5000,
           position: 'bottom'
         });
-
         toast.present();
       }
     });

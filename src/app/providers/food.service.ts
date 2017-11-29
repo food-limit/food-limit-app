@@ -58,4 +58,8 @@ export class FoodService {
     return this.http.get('https://api.outpan.com/v2/products/' + gtin + '?apikey=' + FoodService.OUTPAN_API_KEY);
   }
 
+  public getFood(foodId: number): Food {
+    return this._foodList.find(f => f.id===foodId);
+  }
+
 }
