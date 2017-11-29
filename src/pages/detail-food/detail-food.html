@@ -1,10 +1,14 @@
-<!--
-  Generated template for the DetailFoodPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<app-header [showNavigation]="true"></app-header>
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle *ngIf="showNavigation">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <div class="app-title">Food Limit</div>
+      <img class="app-logo" alt="logo" src="assets/images/logo.png">
+    </ion-title>
+  </ion-navbar>
+</ion-header>
 
 <ion-content padding>
 

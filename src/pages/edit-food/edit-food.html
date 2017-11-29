@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle *ngIf="showNavigation">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <div class="app-title">Food Limit</div>
+      <img class="app-logo" alt="logo" src="assets/images/logo.png">
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>Modifier mon alliment</h3>
+
+  <ion-list *ngIf="_food!=null">
+    <ion-item>
+      <ion-label color="primary">Nom</ion-label>
+      <ion-input placeholder="Text Input" [(ngModel)]="_food.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Quantité</ion-label>
+      <ion-input type="number" [(ngModel)]="_food.quantity" placeholder="Number Input with no label"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date limite de consommation</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="_food.dlc"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Image url</ion-label>
+      <ion-input placeholder="Text Input" [(ngModel)]="_food.picture"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button color="primary" class="btn-fixed-bottom" full (click)="_updateFood()">Enregistrer aliment</button>
+</ion-content>

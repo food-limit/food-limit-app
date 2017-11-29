@@ -8,7 +8,7 @@ import { NavController } from 'ionic-angular';
 export class AppHeaderComponent {
 
   @Input()
-  public showNavigation: boolean;
+  public showNavigation: boolean = true;
 
   constructor(public navCtrl: NavController) {
 

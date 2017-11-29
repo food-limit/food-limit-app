@@ -43,6 +43,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+    AppHeaderComponent,
     FoodLimitApp,
     HomePage,
     ListFoodPage,
