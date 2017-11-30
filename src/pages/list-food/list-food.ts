@@ -41,13 +41,16 @@ export class ListFoodPage {
   }
 
   private _viewFood(food: Food): void {
-    this.navCtrl.push("DetailFoodPage");
+    console.log("food => ", food);
+    this.navCtrl.push("DetailFoodPage", {
+      'id': food.id
+    });
   }
 
   private _editFood(food: Food): void {
     this.navCtrl.push("EditFoodPage", {
       'id': food.id
-    })
+    });
   }
 
   private _deleteFood(food: Food): void {
@@ -85,7 +88,11 @@ export class ListFoodPage {
     });
   }
 
-  private _scanBarcode(): void {
+  private _addFoodKeyboard(): void {
+    this.navCtrl.push("AddFoodPage");
+  }
+
+  private _addFoodScanBarcode(): void {
     const food: Food = new Food();
     this._closeModalAddFood();
     this._barcode.scan().then((scanResult: BarcodeScanResult) => {

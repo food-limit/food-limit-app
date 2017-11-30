@@ -1,13 +1,13 @@
 <app-header [showNavigation]="true"></app-header>
 
 <ion-content class="page-content" padding>
-  <h3>Gestion de mes alliments</h3>
+  <h3>Gestion de mes aliments</h3>
 
   <ion-list>
     <!--<ion-item-divider color="light">Mes alliments</ion-item-divider>-->
     <ion-item-sliding *ngFor="let food of _foodService.foods$ | async">
-      <ion-item>
-        <p>{{food.name}}</p> <p item-right>{{food.dlc | date:'dd/MM/yyyy'}}</p>
+      <ion-item (click)="_viewFood(food)">
+        <p>{{food.quantity}} {{food.name}}</p> <p item-right>{{food.dlc | date:'dd/MM/yyyy'}}</p>
       </ion-item>
 
       <ion-item-options side="right">
@@ -29,13 +29,13 @@
 
 
 <div id="modal-add-food" *ngIf="_modalAddFoodIsOpen" (click)="_closeModalAddFood()">
-  <button ion-button icon-only round color="light" id="btn-add-food-text" class="btn-add-food">
+  <button ion-button icon-only round color="light" id="btn-add-food-text" (click)="_addFoodKeyboard()" class="btn-add-food">
     <ion-icon name="create"></ion-icon>
   </button>
   <button ion-button icon-only round color="light" id="btn-add-food-audio" (click)="_addFoodListening()" class="btn-add-food">
     <ion-icon name="mic"></ion-icon>
   </button>
-  <button ion-button icon-only round color="light" id="btn-add-food-scan" class="btn-add-food" (click)="_scanBarcode()">
+  <button ion-button icon-only round color="light" id="btn-add-food-scan" class="btn-add-food" (click)="_addFoodScanBarcode()">
     <ion-icon name="qr-scanner"></ion-icon>
   </button>
 </div>

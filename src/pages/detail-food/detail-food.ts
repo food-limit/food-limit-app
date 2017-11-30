@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import {Food} from "../../app/model/food.model";
+import {FoodService} from "../../app/providers/food.service";
 
 /**
  * Generated class for the DetailFoodPage page.
@@ -15,11 +17,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetailFoodPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private _food: Food;
+
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, private _foodService: FoodService) {
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DetailFoodPage');
+    if(this.navParams.get('id')) {
+      this._food = this._foodService.getFood(this.navParams.get('id'));
+    }
+  }
+
+  private _deleteFood(food: Food): void {
+    this._foodService.deleteFood(this._food);
+    this.viewCtrl.dismiss();
+  }
+
+  private _editFood(food: Food): void {
+    this.navCtrl.push("EditFoodPage", {
+      'id': food.id
+    });
   }
 
 }

@@ -40,8 +40,7 @@ export class LoginPage {
     let message: string;
     if (error.status && error.status === 401) {
       message = 'Login failed';
-    }
-    else {
+    } else {
       message = `Unexpected error: ${error.statusText}`;
     }
 

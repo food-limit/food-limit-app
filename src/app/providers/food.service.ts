@@ -10,7 +10,7 @@ export class FoodService {
   private _foodList: Food[];
   public static OUTPAN_API_KEY = '1d8ce0505a943cef4270e978410e9fbc';
 
-  private counter: number = 0;
+  private counter: number = 1;
 
   constructor(private http: Http) {
 
@@ -23,21 +23,21 @@ export class FoodService {
         name: "banane",
         dlc: new Date(2017,10,5).toISOString(),
         quantity: 2,
-        picture: ""
+        picture: "http://www.femininbio.com/sites/femininbio.com/files/styles/article/public/styles/paysage/public/images/2013/01/banane.jpg?itok=B7GTuvnK"
       }),
       Object.assign(new Food(), {
         id: this.counter++,
         name: "cornichon",
         dlc: new Date(2018,11,17).toISOString(),
         quantity: 1,
-        picture: ""
+        picture: "https://flowerstore.gr/image/cache/catalog/toersi-konto-ayyouri-sporoi-4yr-270-630x552.jpg"
       }),
       Object.assign(new Food(), {
         id: this.counter++,
         name: "salade",
         dlc: new Date(2018,10,18).toISOString(),
         quantity: 1,
-        picture: ""
+        picture: "https://www.toutpratique.com/img/cms/salade-verte-laitue-scarole-pesticide-comment-laver-la-salade-salade-en-sachet-danger.png"
       })
     ];
     this.foods$.next(this._foodList);
@@ -62,4 +62,12 @@ export class FoodService {
     return this._foodList.find(f => f.id===foodId);
   }
 
+  public updateFood(food: Food): void {
+    this._foodList.forEach(f => {
+      if(f.id === food.id){
+        f = food;
+      }
+    });
+    this.foods$.next(this._foodList);
+  }
 }

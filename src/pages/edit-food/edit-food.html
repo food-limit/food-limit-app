@@ -11,29 +11,76 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Modifier mon alliment</h3>
+  <h3>Modifier mon aliment</h3>
 
-  <ion-list *ngIf="_food!=null">
-    <ion-item>
-      <ion-label color="primary">Nom</ion-label>
-      <ion-input placeholder="Text Input" [(ngModel)]="_food.name"></ion-input>
-    </ion-item>
+  <!--<ion-list *ngIf="_food!=null">-->
+    <!--<ion-item>-->
+      <!--<ion-label color="primary">Nom</ion-label>-->
+      <!--<ion-input [(ngModel)]="_food.name"></ion-input>-->
+    <!--</ion-item>-->
 
-    <ion-item>
-      <ion-label color="primary">Quantité</ion-label>
-      <ion-input type="number" [(ngModel)]="_food.quantity" placeholder="Number Input with no label"></ion-input>
-    </ion-item>
+    <!--<ion-item>-->
+      <!--<ion-label color="primary">Quantité</ion-label>-->
+      <!--<ion-input type="number" [(ngModel)]="_food.quantity"></ion-input>-->
+    <!--</ion-item>-->
 
-    <ion-item>
-      <ion-label>Date limite de consommation</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="_food.dlc"></ion-datetime>
-    </ion-item>
+    <!--<ion-item>-->
+      <!--<ion-label color="primary">date de péremption</ion-label>-->
+      <!--<ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="_food.dlc"></ion-datetime>-->
+    <!--</ion-item>-->
 
-    <ion-item>
-      <ion-label color="primary">Image url</ion-label>
-      <ion-input placeholder="Text Input" [(ngModel)]="_food.picture"></ion-input>
-    </ion-item>
-  </ion-list>
+    <!--<ion-item>-->
+      <!--<ion-label color="primary">Image url</ion-label>-->
+      <!--<ion-input placeholder="Text Input" [(ngModel)]="_food.picture"></ion-input>-->
+    <!--</ion-item>-->
 
-  <button ion-button color="primary" class="btn-fixed-bottom" full (click)="_updateFood()">Enregistrer aliment</button>
+    <!--<ion-item text-center style="border-bottom: 0px;">-->
+      <!--<img width="200px" height="200px" src="{{_food?.picture}}" />-->
+    <!--</ion-item>-->
+  <!--</ion-list>-->
+
+  <!--<button ion-button color="primary" class="btn-fixed-bottom" full (click)="_updateFood(_food)">Enregistrer aliment</button>-->
+
+  <form #form="ngForm" (ngSubmit)="_updateFood(form.value)" novalidate *ngIf="_food">
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary">Nom</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="_food.name" required #name="ngModel"
+                   [class.invalid]="name.errors && name.dirty"></ion-input>
+      </ion-item>
+      <ion-item class="error-message" *ngIf="name.errors?.required && name.dirty">
+        Le nom est obligatoire
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Quantité</ion-label>
+        <ion-input type="number" name="quantity" [(ngModel)]="_food.quantity" required #quantity="ngModel"
+                   [class.invalid]="quantity.errors && quantity.dirty"></ion-input>
+      </ion-item>
+      <ion-item class="error-message" *ngIf="quantity.errors?.required && quantity.dirty">
+        La quantité est obligatoire
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Date de consommation</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" name="dlc" [(ngModel)]="_food.dlc" required #dlc="ngModel"
+                      [class.invalid]="dlc.errors && dlc.dirty"></ion-datetime>
+      </ion-item>
+      <ion-item class="error-message" *ngIf="dlc.errors?.required && dlc.dirty">
+        La date de consommation est obligatoire
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Image url</ion-label>
+        <ion-input name="picture" [(ngModel)]="_food.picture" #picture="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item text-center style="border-bottom: 0px;">
+        <img width="200px" height="200px" src="{{_food?.picture}}" />
+      </ion-item>
+      <!--</ion-list>-->
+    </ion-list>
+
+    <button type="submit" ion-button color="primary" class="btn-fixed-bottom" full [disabled]="!form.valid">Modifier aliment</button>
+  </form>
 </ion-content>

@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle *ngIf="showNavigation">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <div class="app-title">Food Limit</div>
+      <img class="app-logo" alt="logo" src="assets/images/logo.png">
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>Ajouter un aliment</h3>
+
+  <form #form="ngForm" (ngSubmit)="_addFood(form.value)" novalidate>
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary">Nom</ion-label>
+        <ion-input type="text" name="name" ngModel required #name="ngModel"
+                   [class.invalid]="name.errors && name.dirty"></ion-input>
+      </ion-item>
+      <ion-item class="error-message" *ngIf="name.errors?.required && name.dirty">
+        Le nom est obligatoire
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Quantité</ion-label>
+        <ion-input type="number" name="quantity" ngModel required #quantity="ngModel"
+                   [class.invalid]="quantity.errors && quantity.dirty"></ion-input>
+      </ion-item>
+      <ion-item class="error-message" *ngIf="quantity.errors?.required && quantity.dirty">
+        La quantité est obligatoire
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Date de consommation</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" name="dlc" ngModel required #dlc="ngModel"
+                      [class.invalid]="dlc.errors && dlc.dirty"></ion-datetime>
+      </ion-item>
+      <ion-item class="error-message" *ngIf="dlc.errors?.required && dlc.dirty">
+        La date de consommation est obligatoire
+      </ion-item>
+    </ion-list>
+
+    <button type="submit" ion-button color="primary" class="btn-fixed-bottom" full [disabled]="!form.valid">Ajouter aliment</button>
+  </form>
+</ion-content>
