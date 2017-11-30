@@ -11,5 +11,29 @@
 </ion-header>
 
 <ion-content padding>
+  <h3>Information sur mon aliment</h3>
 
+  <ion-list *ngIf="_food!=null">
+    <ion-item>
+      <ion-label color="primary">Nom</ion-label>
+      <ion-input disabled="true" [(ngModel)]="_food.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Quantité</ion-label>
+      <ion-input disabled="true" type="number" [(ngModel)]="_food.quantity"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Date de consommation</ion-label>
+      <ion-datetime disabled="true" displayFormat="MM/DD/YYYY" [(ngModel)]="_food.dlc"></ion-datetime>
+    </ion-item>
+
+    <ion-item text-center style="border-bottom: 0px;">
+      <img width="200px" height="200px" src="{{_food?.picture}}" />
+    </ion-item>
+  </ion-list>
+
+  <button ion-button color="light" class="btn-fixed-bottom" style="bottom: 60px" full (click)="_editFood(_food)">Modifier aliment</button>
+  <button ion-button color="danger" class="btn-fixed-bottom" full (click)="_deleteFood(_food)">Supprimer aliment</button>
 </ion-content>

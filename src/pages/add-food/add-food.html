@@ -11,13 +11,13 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Modifier mon aliment</h3>
+  <h3>Ajouter un aliment</h3>
 
-  <form #form="ngForm" (ngSubmit)="_updateFood(form.value)" novalidate *ngIf="_food">
+  <form #form="ngForm" (ngSubmit)="_addFood(form.value)" novalidate>
     <ion-list>
       <ion-item>
         <ion-label color="primary">Nom</ion-label>
-        <ion-input type="text" name="name" [(ngModel)]="_food.name" required #name="ngModel"
+        <ion-input type="text" name="name" ngModel required #name="ngModel"
                    [class.invalid]="name.errors && name.dirty"></ion-input>
       </ion-item>
       <ion-item class="error-message" *ngIf="name.errors?.required && name.dirty">
@@ -26,7 +26,7 @@
 
       <ion-item>
         <ion-label color="primary">Quantité</ion-label>
-        <ion-input type="number" name="quantity" [(ngModel)]="_food.quantity" required #quantity="ngModel"
+        <ion-input type="number" name="quantity" ngModel required #quantity="ngModel"
                    [class.invalid]="quantity.errors && quantity.dirty"></ion-input>
       </ion-item>
       <ion-item class="error-message" *ngIf="quantity.errors?.required && quantity.dirty">
@@ -35,23 +35,14 @@
 
       <ion-item>
         <ion-label color="primary">Date de consommation</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" name="dlc" [(ngModel)]="_food.dlc" required #dlc="ngModel"
+        <ion-datetime displayFormat="MM/DD/YYYY" name="dlc" ngModel required #dlc="ngModel"
                       [class.invalid]="dlc.errors && dlc.dirty"></ion-datetime>
       </ion-item>
       <ion-item class="error-message" *ngIf="dlc.errors?.required && dlc.dirty">
         La date de consommation est obligatoire
       </ion-item>
-
-      <ion-item>
-        <ion-label color="primary">Image url</ion-label>
-        <ion-input name="picture" [(ngModel)]="_food.picture" #picture="ngModel"></ion-input>
-      </ion-item>
-
-      <ion-item text-center style="border-bottom: 0px;">
-        <img width="200px" height="200px" src="{{_food?.picture}}" />
-      </ion-item>
     </ion-list>
 
-    <button type="submit" ion-button color="primary" class="btn-fixed-bottom" full [disabled]="!form.valid">Modifier aliment</button>
+    <button type="submit" ion-button color="primary" class="btn-fixed-bottom" full [disabled]="!form.valid">Ajouter aliment</button>
   </form>
 </ion-content>

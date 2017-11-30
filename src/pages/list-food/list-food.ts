@@ -41,13 +41,16 @@ export class ListFoodPage {
   }
 
   private _viewFood(food: Food): void {
-    this.navCtrl.push("DetailFoodPage");
+    console.log("food => ", food);
+    this.navCtrl.push("DetailFoodPage", {
+      'id': food.id
+    });
   }
 
   private _editFood(food: Food): void {
     this.navCtrl.push("EditFoodPage", {
       'id': food.id
-    })
+    });
   }
 
   private _deleteFood(food: Food): void {
@@ -71,7 +74,7 @@ export class ListFoodPage {
         let food: Food = new Food();
         let date: string[] = matches[0].split(" ");
         food.name = date[0];
-        food.dlc = new Date(parseInt(date[3]), parseInt(date[2]) - 1, parseInt(date[1]));
+        food.dlc = new Date(parseInt(date[3]), parseInt(date[2]) - 1, parseInt(date[1])).toISOString();
         this._foodService.createFood(food);
       } else {
         let message: string = "Aliment non reconnu !";
@@ -85,14 +88,18 @@ export class ListFoodPage {
     });
   }
 
-  private _scanBarcode(): void {
+  private _addFoodKeyboard(): void {
+    this.navCtrl.push("AddFoodPage");
+  }
+
+  private _addFoodScanBarcode(): void {
     const food: Food = new Food();
     this._closeModalAddFood();
     this._barcode.scan().then((scanResult: BarcodeScanResult) => {
       this._foodService.getFoodInfos(scanResult.text).subscribe((res: any) => {
         food.name = res.json().name;
         food.quantity = 1;
-        food.dlc = new Date();
+        food.dlc = new Date().toISOString();
         food.picture = null;
         this._foodService.createFood(food);
       });
