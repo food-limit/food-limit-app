@@ -2,13 +2,15 @@ import { Injectable } from "@angular/core";
 import { Food } from "../model/food.model";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
-import { Http } from "@angular/http";
+import {Http, RequestOptions, Headers} from "@angular/http";
 
 @Injectable()
 export class FoodService {
   public foods$: BehaviorSubject<Food[]> = new BehaviorSubject([]);
   private _foodList: Food[];
   public static OUTPAN_API_KEY = '1d8ce0505a943cef4270e978410e9fbc';
+  public static GUETTY_API_KEY = '43zf35744rzpdm36fb432avv';
+  public static DEFAULT_PICTURE_URL = 'http://www.tipperarylibraries.ie/wp-content/uploads/2014/10/Lol_question_mark.png';
 
   private counter: number = 1;
 
@@ -49,9 +51,17 @@ export class FoodService {
   }
 
   public createFood(food: Food): void {
-    food.id = this.counter++;
-    this._foodList.push(food);
-    this.foods$.next(this._foodList);
+    this.getFoodPictures(food.name).subscribe(
+      res => {
+        if(res.json().images.length > 0) {
+          food.picture = res.json().images[0].display_sizes[0].uri;
+          food.id = this.counter++;
+          this._foodList.push(food);
+          this.foods$.next(this._foodList);
+        } else {
+          food.picture = FoodService.DEFAULT_PICTURE_URL;
+        }
+      });
   }
 
   public getFoodInfos(gtin: string): Observable<any> {
@@ -69,5 +79,11 @@ export class FoodService {
       }
     });
     this.foods$.next(this._foodList);
+  }
+
+  public getFoodPictures(value: string): Observable<any> {
+    let headers: Headers = new Headers({ 'Content-Type': 'application/json', 'Api-Key': FoodService.GUETTY_API_KEY });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get('https://api.gettyimages.com/v3/search/images?phrase='+value, options);
   }
 }
