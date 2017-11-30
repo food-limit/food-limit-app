@@ -33,7 +33,7 @@ export class FoodLimitApp {
 
     authProvider.authUser.subscribe(jwt => {
       if (jwt) {
-        this.rootPage = HomePage;
+        this.rootPage = ListFoodPage;
       }
       else {
         this.rootPage = LoginPage;
