@@ -1,8 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {HomePage} from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
 import {AuthProvider} from "../providers/auth/auth";
 import {ListFoodPage} from "../pages/list-food/list-food";
@@ -27,7 +26,6 @@ export class FoodLimitApp {
     });
 
     this.pages = [
-      { title: 'Home', component: HomePage },
       { title: 'Gestion de mes aliments', component: ListFoodPage }
     ];
 
