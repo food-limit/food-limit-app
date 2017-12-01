@@ -2,7 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {FoodLimitApp} from './app.component';
-import {HomePage} from '../pages/home/home';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -29,7 +28,6 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
   declarations: [
     FoodLimitApp,
     AppHeaderComponent,
-    HomePage,
     ListFoodPage,
     LoginPage,
     SignupPage
@@ -45,7 +43,6 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
   entryComponents: [
     AppHeaderComponent,
     FoodLimitApp,
-    HomePage,
     ListFoodPage,
     LoginPage,
     SignupPage
