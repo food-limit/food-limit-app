@@ -4,7 +4,6 @@ import { ListFoodPage } from './list-food';
 
 @NgModule({
   declarations: [
-    ListFoodPage,
   ],
   imports: [
     IonicPageModule.forChild(ListFoodPage),

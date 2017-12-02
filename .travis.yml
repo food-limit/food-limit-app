@@ -1,0 +1,27 @@
+sudo: required
+
+language: node_js
+
+node_js:
+  - 'stable'
+
+addons:
+  sonarcloud:
+    organization: 'food-limit'
+    token:
+      secure: $SONAR_TOKEN
+    github_token:
+      secure: $GITHUB_TOKEN
+
+before_script:
+  - npm install -g cordova ionic
+  - npm install
+
+script:
+  - ionic build --prod
+  - sonar-scanner
+
+cache:
+  directories:
+    - 'node_modules'
+    - '$HOME/.sonar/cache'
