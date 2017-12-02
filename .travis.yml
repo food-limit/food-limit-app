@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - 'stable'
+  - '8'
+  - '6'
+
+addons:
+  sonarcloud:
+    organization: "food-limit"
+    token:
+      secure: $SONAR_TOKEN
+    github_token:
+      secure: $GITHUB_TOKEN
+script:
+  - sonar-scanner
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
