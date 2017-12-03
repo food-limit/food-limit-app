@@ -32,7 +32,7 @@ export class ListFoodPage {
     this._foodService.loadFoods();
   }
 
-  private _openModalAddFood(): void {
+  public _openModalAddFood(): void {
     this._modalAddFoodIsOpen = true;
   }
 
@@ -40,20 +40,19 @@ export class ListFoodPage {
     this._modalAddFoodIsOpen = false;
   }
 
-  private _viewFood(food: Food): void {
-    console.log("food => ", food);
+  public _viewFood(food: Food): void {
     this.navCtrl.push("DetailFoodPage", {
       'id': food.id
     });
   }
 
-  private _editFood(food: Food): void {
+  public _editFood(food: Food): void {
     this.navCtrl.push("EditFoodPage", {
       'id': food.id
     });
   }
 
-  private _deleteFood(food: Food): void {
+  public _deleteFood(food: Food): void {
     this._foodService.deleteFood(food);
   }
 
@@ -66,7 +65,7 @@ export class ListFoodPage {
       });
   }
 
-  private _addFoodListening(): void {
+  public _addFoodListening(): void {
     this._getPermissionRecognition();
     this._speechRecognition.startListening().subscribe(matches => {
       let correctMatches = matches.filter(match => this.REGEX_CHECK_FOOD.test(match));
@@ -88,11 +87,11 @@ export class ListFoodPage {
     });
   }
 
-  private _addFoodKeyboard(): void {
+  public _addFoodKeyboard(): void {
     this.navCtrl.push("AddFoodPage");
   }
 
-  private _addFoodScanBarcode(): void {
+  public _addFoodScanBarcode(): void {
     const food: Food = new Food();
     this._closeModalAddFood();
     this._barcode.scan().then((scanResult: BarcodeScanResult) => {
