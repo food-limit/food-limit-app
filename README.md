@@ -1,4 +1,7 @@
 # food-limit-app
+
+[![Build Status](https://travis-ci.org/food-limit/food-limit-app.svg?branch=master)](https://travis-ci.org/food-limit/food-limit-app)
+
 Hybrid application of Food Limit
 
 ## Install dependencies
