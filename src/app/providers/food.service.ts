@@ -73,9 +73,9 @@ export class FoodService {
   }
 
   public updateFood(food: Food): void {
-    this._foodList.forEach(f => {
-      if(f.id === food.id){
-        f = food;
+    this._foodList.forEach((newFood, index) => {
+      if(newFood.id === food.id){
+        this._foodList[index] = newFood;
       }
     });
     this.foods$.next(this._foodList);
