@@ -29,12 +29,12 @@ export class DetailFoodPage {
     }
   }
 
-  private _deleteFood(food: Food): void {
+  public _deleteFood(food: Food): void {
     this._foodService.deleteFood(this._food);
     this.viewCtrl.dismiss();
   }
 
-  private _editFood(food: Food): void {
+  public _editFood(food: Food): void {
     this.navCtrl.push("EditFoodPage", {
       'id': food.id
     });

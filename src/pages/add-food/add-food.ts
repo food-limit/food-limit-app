@@ -25,7 +25,7 @@ export class AddFoodPage {
   }
 
 
-  private _showToastWithCloseButton(message: string): void {
+  public _showToastWithCloseButton(message: string): void {
     const toast = this.toastCtrl.create({
       message: message,
       showCloseButton: true,
@@ -34,7 +34,7 @@ export class AddFoodPage {
     toast.present();
   }
 
-  private _addFood(food: Food): void {
+  public _addFood(food: Food): void {
     this._foodService.createFood(food);
     this.viewCtrl.dismiss();
   }

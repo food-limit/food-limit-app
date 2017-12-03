@@ -22,7 +22,7 @@ export class EditFoodPage {
     }
   }
 
-  private _updateFood(food: Food): void {
+  public _updateFood(food: Food): void {
     this._foodService.updateFood(food);
     this.viewCtrl.dismiss();
   }
