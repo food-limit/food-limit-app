@@ -4,7 +4,6 @@
   <h3>Gestion de mes aliments</h3>
 
   <ion-list>
-    <!--<ion-item-divider color="light">Mes alliments</ion-item-divider>-->
     <ion-item-sliding *ngFor="let food of _foodService.foods$ | async">
       <ion-item (click)="_viewFood(food)">
         <p>{{food.quantity}} {{food.name}}</p> <p item-right>{{food.dlc | date:'dd/MM/yyyy'}}</p>
