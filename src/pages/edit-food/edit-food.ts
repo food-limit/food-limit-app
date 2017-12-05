@@ -11,6 +11,7 @@ import {Food} from "../../app/model/food.model";
 export class EditFoodPage {
 
   private _food: Food;
+  private _callback: Function;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, private _foodService: FoodService) {
 
@@ -18,13 +19,26 @@ export class EditFoodPage {
 
   ionViewDidLoad() {
     if(this.navParams.get('id')) {
-      this._food = this._foodService.getFood(this.navParams.get('id'));
+      this._callback = this.navParams.get('callback');
+      this._foodService.getFood(this.navParams.get('id'))
+        .subscribe(res => {
+          this._food = res;
+        });
     }
   }
 
   public _updateFood(food: Food): void {
-    this._foodService.updateFood(food);
-    this.viewCtrl.dismiss();
+    this._food = Object.assign(new Food(), {
+      id: this._food.id,
+      name: food.name,
+      quantity: food.quantity,
+      picture: food.picture,
+      dlc: food.dlc
+    });
+    this._foodService.updateFood(this._food)
+      .subscribe(res => {
+        this._callback().then(() => this.navCtrl.pop());
+      });
   }
 
 }

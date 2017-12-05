@@ -1,4 +1,4 @@
-//export const SERVER_URL = "http://localhost:8080";
+// export const SERVER_URL = "http://localhost:8080";
 export const SERVER_URL = "https://food-limit-api.herokuapp.com";
 
 export const OUTPAN_API_URL = "https://api.outpan.com/v2/products";

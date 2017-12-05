@@ -24,20 +24,35 @@ export class DetailFoodPage {
   }
 
   ionViewDidLoad() {
+    this._loadFood();
+  }
+
+  public deleteFood(): void {
+    this._foodService.deleteFood(this._food.id);
+    this.navCtrl.pop();
+  }
+
+  public editFood(food: Food): void {
+    this.navCtrl.push("EditFoodPage", {
+      id: food.id,
+      callback: this.refreshFood.bind(this)
+    });
+  }
+
+  private _loadFood(): void {
     if(this.navParams.get('id')) {
-      this._food = this._foodService.getFood(this.navParams.get('id'));
+      this._foodService.getFood(this.navParams.get('id'))
+        .subscribe(res => {
+          this._food = res;
+        });
     }
   }
 
-  public _deleteFood(food: Food): void {
-    this._foodService.deleteFood(this._food);
-    this.viewCtrl.dismiss();
-  }
-
-  public _editFood(food: Food): void {
-    this.navCtrl.push("EditFoodPage", {
-      'id': food.id
-    });
+  public refreshFood(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this._loadFood();
+      resolve();
+    })
   }
 
 }
