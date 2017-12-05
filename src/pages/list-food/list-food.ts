@@ -32,28 +32,28 @@ export class ListFoodPage {
     this._foodService.loadFoods();
   }
 
-  public _openModalAddFood(): void {
+  public openModalAddFood(): void {
     this._modalAddFoodIsOpen = true;
   }
 
-  private _closeModalAddFood(): void {
+  public closeModalAddFood(): void {
     this._modalAddFoodIsOpen = false;
   }
 
-  public _viewFood(food: Food): void {
+  public viewFood(food: Food): void {
     this.navCtrl.push("DetailFoodPage", {
       'id': food.id
     });
   }
 
-  public _editFood(food: Food): void {
+  public editFood(food: Food): void {
     this.navCtrl.push("EditFoodPage", {
       'id': food.id
     });
   }
 
-  public _deleteFood(food: Food): void {
-    this._foodService.deleteFood(food);
+  public deleteFood(food: Food): void {
+    this._foodService.deleteFood(food.id);
   }
 
   private _getPermissionRecognition() {
@@ -65,7 +65,7 @@ export class ListFoodPage {
       });
   }
 
-  public _addFoodListening(): void {
+  public addFoodListening(): void {
     this._getPermissionRecognition();
     this._speechRecognition.startListening().subscribe(matches => {
       let correctMatches = matches.filter(match => this.REGEX_CHECK_FOOD.test(match));
@@ -74,7 +74,7 @@ export class ListFoodPage {
         let date: string[] = matches[0].split(" ");
         food.name = date[0];
         food.dlc = new Date(parseInt(date[3]), parseInt(date[2]) - 1, parseInt(date[1])).toISOString();
-        this._foodService.createFood(food);
+        this._foodService.createFood(food).subscribe();
       } else {
         let message: string = "Aliment non reconnu !";
         const toast = this.toastCtrl.create({
@@ -87,20 +87,20 @@ export class ListFoodPage {
     });
   }
 
-  public _addFoodKeyboard(): void {
+  public addFoodKeyboard(): void {
     this.navCtrl.push("AddFoodPage");
   }
 
-  public _addFoodScanBarcode(): void {
+  public addFoodScanBarcode(): void {
     const food: Food = new Food();
-    this._closeModalAddFood();
+    this.closeModalAddFood();
     this._barcode.scan().then((scanResult: BarcodeScanResult) => {
       this._foodService.getFoodInfos(scanResult.text).subscribe((res: any) => {
         food.name = res.json().name;
         food.quantity = 1;
         food.dlc = new Date().toISOString();
         food.picture = null;
-        this._foodService.createFood(food);
+        this._foodService.createFood(food).subscribe();
       });
     });
   }

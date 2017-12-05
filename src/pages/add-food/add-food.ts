@@ -35,7 +35,9 @@ export class AddFoodPage {
   }
 
   public _addFood(food: Food): void {
-    this._foodService.createFood(food);
-    this.viewCtrl.dismiss();
+    this._foodService.createFood(food)
+      .subscribe(res => {
+        this.navCtrl.pop();
+      });
   }
 }

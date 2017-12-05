@@ -1,65 +1,70 @@
-import { Injectable } from "@angular/core";
-import { Food } from "../model/food.model";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable } from "rxjs/Observable";
-import { Http, RequestOptions, Headers } from "@angular/http";
-import { AuthProvider } from '../../providers/auth/auth';
-import { DEFAULT_PICTURE_URL, GETTY_API_KEY, OUTPAN_API_KEY, OUTPAN_API_URL, SERVER_URL } from '../../config';
+import {Injectable} from "@angular/core";
+import {Food} from "../model/food.model";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Observable} from "rxjs/Observable";
+import {Headers, Http, RequestOptions} from "@angular/http";
+import {DEFAULT_PICTURE_URL, GETTY_API_KEY, OUTPAN_API_KEY, OUTPAN_API_URL, SERVER_URL} from '../../config';
+import {AuthHttp} from "angular2-jwt";
+import {mergeMap} from "rxjs/operators";
 
 @Injectable()
 export class FoodService {
   public foods$: BehaviorSubject<Food[]> = new BehaviorSubject([]);
   private _foodList: Food[];
 
-  private counter: number = 1;
-
-  constructor(private http: Http, private authProvider: AuthProvider) {
-
+  constructor(private http: Http, private authHttp: AuthHttp) {
   }
 
   public loadFoods(): void {
-    this.authProvider.authUser.subscribe((jwt) => {
-      const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-      headers.append('Authorization', 'Bearer ' + jwt);
-      const options = new RequestOptions({ headers: headers });
+    this.authHttp.get(`${SERVER_URL}/foods`).subscribe((foodList) => {
+      this._foodList = foodList.json();
+      this.foods$.next(this._foodList);
+    });
+  }
 
-      this.http.get(`${SERVER_URL}/foods`, options).subscribe((foodList) => {
-        this._foodList = foodList.json();
+  public getFood(foodId: number): Observable<Food> {
+    return this.authHttp.get(`${SERVER_URL}/foods/${foodId}`)
+      .map(res => res.json());
+  }
+
+  public deleteFood(foodId: number): void {
+    this.authHttp.delete(`${SERVER_URL}/foods/${foodId}`)
+      .subscribe(() => {
+        this._foodList = this._foodList.filter(f => f.id != foodId);
         this.foods$.next(this._foodList);
       });
-    });
   }
 
-  public getFood(foodId: number): Food {
-    return this._foodList.find(f => f.id === foodId);
+  public createFood(food: Food): Observable<Food> {
+    return this.getFoodPictures(food.name)
+      .pipe(
+        mergeMap(res => {
+          if (res.json().images.length > 0) {
+            food.picture = res.json().images[0].display_sizes[0].uri;
+          } else {
+            food.picture = DEFAULT_PICTURE_URL;
+          }
+          return this.authHttp.post(`${SERVER_URL}/foods`, food)
+            .map(res => res.json())
+            .do(res => {
+              this._foodList.push(Object.assign(new Food(), res));
+              this.foods$.next(this._foodList);
+            });
+        })
+      )
   }
 
-  public deleteFood(food: Food): void {
-    this._foodList = this._foodList.filter(f => f.id != food.id);
-    this.foods$.next(this._foodList);
-  }
-
-  public createFood(food: Food): void {
-    this.getFoodPictures(food.name).subscribe(
-      res => {
-        if (res.json().images.length > 0) {
-          food.picture = res.json().images[0].display_sizes[0].uri;
-          food.id = this.counter++;
-          this._foodList.push(food);
-          this.foods$.next(this._foodList);
-        } else {
-          food.picture = DEFAULT_PICTURE_URL;
-        }
+  public updateFood(food: Food): Observable<Food> {
+    return this.authHttp.put(`${SERVER_URL}/foods/${food.id}`, food)
+      .map(res => res.json())
+      .do(res => {
+        this._foodList.forEach((f, index) => {
+          if (f.id === food.id) {
+            this._foodList[index] = food;
+          }
+        });
+        this.foods$.next(this._foodList);
       });
-  }
-
-  public updateFood(food: Food): void {
-    this._foodList.forEach((newFood, index) => {
-      if (newFood.id === food.id) {
-        this._foodList[index] = newFood;
-      }
-    });
-    this.foods$.next(this._foodList);
   }
 
   public getFoodInfos(gtin: string): Observable<any> {
