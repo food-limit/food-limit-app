@@ -42,11 +42,6 @@
         La date de consommation est obligatoire
       </ion-item>
 
-      <ion-item>
-        <ion-label color="primary">Image url</ion-label>
-        <ion-input name="picture" [(ngModel)]="_food.picture" #picture="ngModel"></ion-input>
-      </ion-item>
-
       <ion-item text-center style="border-bottom: 0px;">
         <img width="200px" height="200px" src="{{_food?.picture}}" alt="{{_food?.name}}" />
       </ion-item>
