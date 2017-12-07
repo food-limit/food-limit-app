@@ -10,6 +10,8 @@ import {Food} from "../../app/model/food.model";
 })
 export class EditFoodPage {
 
+  public minDate = new Date().toISOString();
+
   private _food: Food;
   private _callback: Function;
 

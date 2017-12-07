@@ -26,7 +26,7 @@
 
     <ion-item>
       <ion-label color="primary">Date de consommation</ion-label>
-      <ion-datetime disabled="true" displayFormat="MM/DD/YYYY" [(ngModel)]="_food.dlc"></ion-datetime>
+      <ion-datetime disabled="true" displayFormat="DD/MM/YYYY" min="{{minDate}}" max="2099-12-31" [(ngModel)]="_food.dlc"></ion-datetime>
     </ion-item>
 
     <ion-item text-center style="border-bottom: 0px;">
