@@ -23,7 +23,7 @@ export class LoginPage {
   login(value: any) {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Logging in ...'
+      content: 'Connexion ...'
     });
 
     loading.present();
@@ -39,7 +39,7 @@ export class LoginPage {
   handleError(error: any) {
     let message: string;
     if (error.status && error.status === 401) {
-      message = 'Login failed';
+      message = 'Connexion échoué';
     } else {
       message = `Unexpected error: ${error.statusText}`;
     }

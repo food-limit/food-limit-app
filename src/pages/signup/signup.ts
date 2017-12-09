@@ -21,7 +21,7 @@ export class SignupPage {
   signup(value: any) {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Signing up ...'
+      content: 'Inscription ...'
     });
 
     loading.present();
@@ -37,7 +37,7 @@ export class SignupPage {
   private showSuccesToast(jwt) {
     if (jwt !== 'EXISTS') {
       const toast = this.toastCtrl.create({
-        message: 'Sign up successful',
+        message: 'Inscription succès',
         duration: 3000,
         position: 'bottom'
       });
@@ -46,7 +46,7 @@ export class SignupPage {
     }
     else {
       const toast = this.toastCtrl.create({
-        message: 'Username already registered',
+        message: 'Le nom d\'utilisateur existe déjà',
         duration: 3000,
         position: 'bottom'
       });
