@@ -3,7 +3,10 @@ import {Food} from "../model/food.model";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Observable} from "rxjs/Observable";
 import {Headers, Http, RequestOptions} from "@angular/http";
-import {DEFAULT_PICTURE_URL, GETTY_API_KEY, OUTPAN_API_KEY, OUTPAN_API_URL, SERVER_URL} from '../../config';
+import {
+  DEFAULT_PICTURE_URL, GETTY_API_KEY, EANDATA_API_KEY, EANDARA_API_URL, SERVER_URL,
+  GETTYIMAGES_API_URL
+} from '../../config';
 import {AuthHttp} from "angular2-jwt";
 import {mergeMap} from "rxjs/operators";
 
@@ -68,12 +71,12 @@ export class FoodService {
   }
 
   public getFoodInfos(gtin: string): Observable<any> {
-    return this.http.get(`${OUTPAN_API_URL}/${gtin}?apikey=${OUTPAN_API_KEY}`);
+    return this.http.get(`${EANDARA_API_URL}&keycode=${EANDATA_API_KEY}&mode=json&find=${gtin}`);
   }
 
   public getFoodPictures(value: string): Observable<any> {
     let headers: Headers = new Headers({ 'Content-Type': 'application/json', 'Api-Key': GETTY_API_KEY });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get('https://api.gettyimages.com/v3/search/images?phrase=' + value, options);
+    return this.http.get(`${GETTYIMAGES_API_URL}?phrase=${value}`, options);
   }
 }

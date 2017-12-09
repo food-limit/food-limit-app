@@ -34,7 +34,7 @@ export class EditFoodPage {
       id: this._food.id,
       name: food.name,
       quantity: food.quantity,
-      picture: food.picture,
+      picture: this._food.picture,
       dlc: food.dlc
     });
     this._foodService.updateFood(this._food)
