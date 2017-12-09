@@ -17,7 +17,7 @@
     <ion-list>
       <ion-item>
         <ion-label color="primary">Nom</ion-label>
-        <ion-input type="text" name="name" ngModel required #name="ngModel"
+        <ion-input type="text" name="name" [(ngModel)]="_food.name" required #name="ngModel"
                    [class.invalid]="name.errors && name.dirty"></ion-input>
       </ion-item>
       <ion-item class="error-message" *ngIf="name.errors?.required && name.dirty">
@@ -26,7 +26,7 @@
 
       <ion-item>
         <ion-label color="primary">Quantité</ion-label>
-        <ion-input type="number" name="quantity" ngModel required #quantity="ngModel"
+        <ion-input type="number" name="quantity" [(ngModel)]="_food.quantity" required #quantity="ngModel"
                    [class.invalid]="quantity.errors && quantity.dirty"></ion-input>
       </ion-item>
       <ion-item class="error-message" *ngIf="quantity.errors?.required && quantity.dirty">
@@ -35,7 +35,7 @@
 
       <ion-item>
         <ion-label color="primary">Date de consommation</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" name="dlc" min="{{minDate}}" max="2099-12-31" ngModel required #dlc="ngModel"
+        <ion-datetime displayFormat="DD/MM/YYYY" name="dlc" min="{{minDate}}" max="2099-12-31" [(ngModel)]="_food.dlc" required #dlc="ngModel"
                       [class.invalid]="dlc.errors && dlc.dirty"></ion-datetime>
       </ion-item>
       <ion-item class="error-message" *ngIf="dlc.errors?.required && dlc.dirty">

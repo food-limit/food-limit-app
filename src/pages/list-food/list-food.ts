@@ -48,7 +48,10 @@ export class ListFoodPage {
 
   public editFood(food: Food): void {
     this.navCtrl.push("EditFoodPage", {
-      'id': food.id
+      'id': food.id,
+      callback: () => new Promise((resolve, reject) => {
+        resolve();
+      })
     });
   }
 
@@ -96,11 +99,13 @@ export class ListFoodPage {
     this.closeModalAddFood();
     this._barcode.scan().then((scanResult: BarcodeScanResult) => {
       this._foodService.getFoodInfos(scanResult.text).subscribe((res: any) => {
-        food.name = res.json().name;
+        food.name = res.json().product.attributes.product;
         food.quantity = 1;
-        food.dlc = new Date().toISOString();
+        food.dlc = null;
         food.picture = null;
-        this._foodService.createFood(food).subscribe();
+        this.navCtrl.push("AddFoodPage", {
+          'food': food
+        });
       });
     });
   }
