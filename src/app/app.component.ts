@@ -19,7 +19,7 @@ export class FoodLimitApp {
   constructor(platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
-              authProvider: AuthProvider) {
+              private authProvider: AuthProvider) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -46,4 +46,9 @@ export class FoodLimitApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
+  logout() {
+    this.authProvider.logout();
+  }
+
 }
