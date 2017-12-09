@@ -19,13 +19,17 @@ export class AddFoodPage {
 
   public minDate = new Date().toISOString();
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public toastCtrl: ToastController, private _foodService: FoodService) {
+  private _food: Food;
 
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public toastCtrl: ToastController, private _foodService: FoodService) {
+    this._food = new Food();
   }
 
   ionViewDidLoad() {
+    if(this.navParams.get('food')) {
+      this._food = this.navParams.get('food');
+    }
   }
-
 
   public _showToastWithCloseButton(message: string): void {
     const toast = this.toastCtrl.create({
