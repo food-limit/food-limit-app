@@ -35,7 +35,7 @@
 
       <ion-item>
         <ion-label color="primary">Date de consommation</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" name="dlc" [(ngModel)]="_food.dlc" required #dlc="ngModel"
+        <ion-datetime displayFormat="DD/MM/YYYY" name="dlc" min="{{minDate}}" max="2099-12-31" [(ngModel)]="_food.dlc" required #dlc="ngModel"
                       [class.invalid]="dlc.errors && dlc.dirty"></ion-datetime>
       </ion-item>
       <ion-item class="error-message" *ngIf="dlc.errors?.required && dlc.dirty">

@@ -17,6 +17,8 @@ import {FoodService} from "../../app/providers/food.service";
 })
 export class DetailFoodPage {
 
+  public minDate = new Date().toISOString();
+
   private _food: Food;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, private _foodService: FoodService) {
