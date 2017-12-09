@@ -15,7 +15,7 @@ export class FoodService {
   public foods$: BehaviorSubject<Food[]> = new BehaviorSubject([]);
   private _foodList: Food[];
 
-  constructor(private http: Http, private authHttp: AuthHttp, ) {
+  constructor(private http: Http, private authHttp: AuthHttp) {
   }
 
   public loadFoods(): void {
