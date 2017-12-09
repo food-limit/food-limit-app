@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {FoodService} from "../../app/providers/food.service";
 import {Food} from "../../app/model/food.model";
 import {SpeechRecognition} from "@ionic-native/speech-recognition";
 import { BarcodeScanResult, BarcodeScanner } from '@ionic-native/barcode-scanner';
+import {DatePipe} from '@angular/common'
 
 /**
  * Generated class for the ListFoodPage page.
@@ -16,6 +17,7 @@ import { BarcodeScanResult, BarcodeScanner } from '@ionic-native/barcode-scanner
 @Component({
   selector: 'page-list-food',
   templateUrl: 'list-food.html',
+  providers: [DatePipe]
 })
 export class ListFoodPage {
   private _modalAddFoodIsOpen: boolean;
@@ -28,7 +30,9 @@ export class ListFoodPage {
     private _foodService: FoodService,
     private _barcode: BarcodeScanner,
     private _speechRecognition: SpeechRecognition,
-    private readonly toastCtrl: ToastController) {
+    private readonly toastCtrl: ToastController,
+    private _datePipe: DatePipe,
+    private _changeDetectorRef: ChangeDetectorRef) {
     this._foodService.loadFoods();
   }
 
@@ -73,11 +77,15 @@ export class ListFoodPage {
     this._speechRecognition.startListening().subscribe(matches => {
       let correctMatches = matches.filter(match => this.REGEX_CHECK_FOOD.test(match));
       if (correctMatches.length > 0) {
+
         let food: Food = new Food();
-        let date: string[] = matches[0].split(" ");
-        food.name = date[0];
-        food.dlc = new Date(parseInt(date[3]), parseInt(date[2]) - 1, parseInt(date[1])).toISOString();
-        this._foodService.createFood(food).subscribe();
+        let date: string[] = correctMatches[0].split(" ");
+        food.quantity = /[0-9]{1,2}/.test(date[0])?parseInt(date[0]):1;
+        food.name = date[1];
+        food.dlc = this._datePipe.transform(new Date(parseInt(date[4]), parseInt(date[3]) - 1, parseInt(date[2])), 'yyyy-MM-dd');
+        this._foodService.createFood(food).subscribe(res => {
+          this._refreshPage();
+        });
       } else {
         let message: string = "Aliment non reconnu !";
         const toast = this.toastCtrl.create({
@@ -108,5 +116,11 @@ export class ListFoodPage {
         });
       });
     });
+  }
+
+  private _refreshPage() {
+    // this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    // window.location.reload();
+    this._changeDetectorRef.detectChanges();
   }
 }
