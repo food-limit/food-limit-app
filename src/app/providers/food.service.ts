@@ -79,4 +79,5 @@ export class FoodService {
     let options = new RequestOptions({ headers: headers });
     return this.http.get(`${GETTYIMAGES_API_URL}?phrase=${value}`, options);
   }
+
 }
