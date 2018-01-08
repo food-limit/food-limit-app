@@ -74,9 +74,9 @@ export class ListFoodPage {
     this._speechRecognition.startListening().subscribe(matches => {
       this._foodService.nlpToAddFood(matches[0]).subscribe(res => {
         let food: Food = new Food();
-        food.quantity = res.json().entities.number.scalar;
-        food.name = res.json().entities.food.value;
-        food.dlc = res.json().entities.datetime.iso;
+        food.quantity = res.json().results.entities.number[0].scalar;
+        food.name = res.json().results.entities.food[0].value;
+        food.dlc = this._datePipe.transform(res.json().results.entities.datetime[0].iso, 'yyyy-MM-dd');
 
         if (food.quantity && food.name && food.dlc) {
           this._foodService.createFood(food).subscribe(res => {
@@ -91,6 +91,14 @@ export class ListFoodPage {
           });
           toast.present();
         }
+      },
+      err => {
+        const toast = this.toastCtrl.create({
+          message: "erreur => "+err,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
       });
     });
   }
