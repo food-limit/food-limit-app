@@ -7,3 +7,4 @@ export const DEFAULT_PICTURE_URL = 'http://www.tipperarylibraries.ie/wp-content/
 
 export const EANDATA_API_KEY = 'B710BAFC5A2BCD23';
 export const GETTY_API_KEY = '43zf35744rzpdm36fb432avv';
+export const TOKEN_RECAST_AI = 'cabf947ea1a1e7722de3bffb7a29a399';

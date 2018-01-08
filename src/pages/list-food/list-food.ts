@@ -1,10 +1,10 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {FoodService} from "../../app/providers/food.service";
-import {Food} from "../../app/model/food.model";
-import {SpeechRecognition} from "@ionic-native/speech-recognition";
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { FoodService } from "../../app/providers/food.service";
+import { Food } from "../../app/model/food.model";
+import { SpeechRecognition } from "@ionic-native/speech-recognition";
 import { BarcodeScanResult, BarcodeScanner } from '@ionic-native/barcode-scanner';
-import {DatePipe} from '@angular/common'
+import { DatePipe } from '@angular/common'
 
 /**
  * Generated class for the ListFoodPage page.
@@ -22,10 +22,7 @@ import {DatePipe} from '@angular/common'
 export class ListFoodPage {
   private _modalAddFoodIsOpen: boolean;
 
-  public REGEX_CHECK_FOOD: RegExp = /[a-zA-Z]{3,}\s[0-9]{1,2}\s([0-9]{1,2}|janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre)\s[0-9]{4}/;
-
-  constructor(
-    public navCtrl: NavController,
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private _foodService: FoodService,
     private _barcode: BarcodeScanner,
@@ -75,26 +72,26 @@ export class ListFoodPage {
   public addFoodListening(): void {
     this._getPermissionRecognition();
     this._speechRecognition.startListening().subscribe(matches => {
-      let correctMatches = matches.filter(match => this.REGEX_CHECK_FOOD.test(match));
-      if (correctMatches.length > 0) {
-
+      this._foodService.nlpToAddFood(matches[0]).subscribe(res => {
         let food: Food = new Food();
-        let date: string[] = correctMatches[0].split(" ");
-        food.quantity = /[0-9]{1,2}/.test(date[0])?parseInt(date[0]):1;
-        food.name = date[1];
-        food.dlc = this._datePipe.transform(new Date(parseInt(date[4]), parseInt(date[3]) - 1, parseInt(date[2])), 'yyyy-MM-dd');
-        this._foodService.createFood(food).subscribe(res => {
-          this._refreshPage();
-        });
-      } else {
-        let message: string = "Aliment non reconnu !";
-        const toast = this.toastCtrl.create({
-          message,
-          duration: 5000,
-          position: 'bottom'
-        });
-        toast.present();
-      }
+        food.quantity = res.json().entities.number.scalar;
+        food.name = res.json().entities.food.value;
+        food.dlc = res.json().entities.datetime.iso;
+
+        if (food.quantity && food.name && food.dlc) {
+          this._foodService.createFood(food).subscribe(res => {
+            this._refreshPage();
+          });
+        } else {
+          let message: string = "Aliment non reconnu !";
+          const toast = this.toastCtrl.create({
+            message,
+            duration: 5000,
+            position: 'bottom'
+          });
+          toast.present();
+        }
+      });
     });
   }
 
