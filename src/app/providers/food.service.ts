@@ -9,6 +9,8 @@ import {
 } from '../../config';
 import {AuthHttp} from "angular2-jwt";
 import {mergeMap} from "rxjs/operators";
+import 'rxjs/add/operator/do';
+
 
 @Injectable()
 export class FoodService {
