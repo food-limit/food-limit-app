@@ -7,8 +7,9 @@ import {
   DEFAULT_PICTURE_URL, GETTY_API_KEY, EANDATA_API_KEY, EANDARA_API_URL, SERVER_URL,
   GETTYIMAGES_API_URL, TOKEN_RECAST_AI
 } from '../../config';
-import { AuthHttp } from "angular2-jwt";
-import { mergeMap } from "rxjs/operators";
+import {AuthHttp} from "angular2-jwt";
+import {mergeMap} from "rxjs/operators";
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class FoodService {

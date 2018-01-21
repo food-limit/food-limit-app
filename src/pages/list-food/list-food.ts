@@ -1,10 +1,8 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { FoodService } from "../../app/providers/food.service";
-import { Food } from "../../app/model/food.model";
-import { SpeechRecognition } from "@ionic-native/speech-recognition";
-import { BarcodeScanResult, BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { DatePipe } from '@angular/common'
+import {ChangeDetectorRef, Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, ToastController, LoadingController} from 'ionic-angular';
+import {FoodService} from "../../app/providers/food.service";
+import {Food} from "../../app/model/food.model";
+import {SpeechRecognition} from "@ionic-native/speech-recognition";
 
 /**
  * Generated class for the ListFoodPage page.
@@ -29,6 +27,7 @@ export class ListFoodPage {
     private _speechRecognition: SpeechRecognition,
     private readonly toastCtrl: ToastController,
     private _datePipe: DatePipe,
+    private loadingCtrl: LoadingController,
     private _changeDetectorRef: ChangeDetectorRef) {
     this._foodService.loadFoods();
   }
@@ -111,11 +110,20 @@ export class ListFoodPage {
     const food: Food = new Food();
     this.closeModalAddFood();
     this._barcode.scan().then((scanResult: BarcodeScanResult) => {
+
+      let loading = this.loadingCtrl.create({
+        spinner: 'bubbles',
+        content: 'Chargement ...'
+      });
+
+      loading.present();
+
       this._foodService.getFoodInfos(scanResult.text).subscribe((res: any) => {
         food.name = res.json().product.attributes.product;
         food.quantity = 1;
         food.dlc = null;
         food.picture = null;
+        loading.dismiss();
         this.navCtrl.push("AddFoodPage", {
           'food': food
         });
