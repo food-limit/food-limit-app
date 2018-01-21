@@ -1,16 +1,15 @@
-import {Injectable} from "@angular/core";
-import {Food} from "../model/food.model";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {Observable} from "rxjs/Observable";
-import {Headers, Http, RequestOptions} from "@angular/http";
+import { Injectable } from "@angular/core";
+import { Food } from "../model/food.model";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from "rxjs/Observable";
+import { Headers, Http, RequestOptions } from "@angular/http";
 import {
   DEFAULT_PICTURE_URL, GETTY_API_KEY, EANDATA_API_KEY, EANDARA_API_URL, SERVER_URL,
-  GETTYIMAGES_API_URL
+  GETTYIMAGES_API_URL, TOKEN_RECAST_AI
 } from '../../config';
 import {AuthHttp} from "angular2-jwt";
 import {mergeMap} from "rxjs/operators";
 import 'rxjs/add/operator/do';
-
 
 @Injectable()
 export class FoodService {
@@ -70,6 +69,17 @@ export class FoodService {
         });
         this.foods$.next(this._foodList);
       });
+  }
+
+  public nlpToAddFood(phrase: string): Observable<any> {
+    let headers: Headers = new Headers({'Authorization': 'Token ' + TOKEN_RECAST_AI });
+    let options = new RequestOptions({ headers: headers });
+
+    let formData: FormData = new FormData();
+    formData.append('text', phrase);
+    formData.append('language', 'fr');
+
+    return this.http.post('https://api.recast.ai/v2/request', formData, options);
   }
 
   public getFoodInfos(gtin: string): Observable<any> {
