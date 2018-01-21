@@ -3,6 +3,8 @@ import {IonicPage, NavController, NavParams, ToastController, ViewController} fr
 import {Food} from "../../app/model/food.model";
 import {FoodService} from "../../app/providers/food.service";
 
+import plural from 'pluralize-fr';
+
 /**
  * Generated class for the AddFoodPage page.
  *
@@ -41,6 +43,12 @@ export class AddFoodPage {
   }
 
   public _addFood(food: Food): void {
+    if (food.quantity > 1) {
+      food.name = plural(food.name).toLowerCase();
+    } else {
+      food.name = food.name.toLowerCase();
+    }
+
     this._foodService.createFood(food)
       .subscribe(res => {
         this.navCtrl.pop();

@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController, LoadingController} from 'ionic-angular';
-import {FoodService} from "../../app/providers/food.service";
-import {Food} from "../../app/model/food.model";
-import {SpeechRecognition} from "@ionic-native/speech-recognition";
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { IonicPage, LoadingController, NavController, NavParams, ToastController } from 'ionic-angular';
+import { FoodService } from "../../app/providers/food.service";
+import { Food } from "../../app/model/food.model";
+import { SpeechRecognition } from "@ionic-native/speech-recognition";
 import { DatePipe } from '@angular/common';
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner';
 
@@ -76,7 +76,7 @@ export class ListFoodPage {
       this._foodService.nlpToAddFood(matches[0]).subscribe(res => {
         let food: Food = new Food();
         food.quantity = res.json().results.entities.number[0].scalar;
-        food.name = res.json().results.entities.food[0].value;
+        food.name = (res.json().entities.food.value).toLowerCase();
         food.dlc = this._datePipe.transform(res.json().results.entities.datetime[0].iso, 'yyyy-MM-dd');
 
         if (food.quantity && food.name && food.dlc) {
