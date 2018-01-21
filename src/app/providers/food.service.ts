@@ -11,6 +11,8 @@ import {AuthHttp} from "angular2-jwt";
 import {mergeMap} from "rxjs/operators";
 import 'rxjs/add/operator/do';
 
+import 'rxjs/add/operator/do';
+
 @Injectable()
 export class FoodService {
   public foods$: BehaviorSubject<Food[]> = new BehaviorSubject([]);
