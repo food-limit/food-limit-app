@@ -3,6 +3,8 @@ import {IonicPage, NavController, NavParams, ToastController, LoadingController}
 import {FoodService} from "../../app/providers/food.service";
 import {Food} from "../../app/model/food.model";
 import {SpeechRecognition} from "@ionic-native/speech-recognition";
+import { DatePipe } from '@angular/common';
+import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner';
 
 /**
  * Generated class for the ListFoodPage page.
