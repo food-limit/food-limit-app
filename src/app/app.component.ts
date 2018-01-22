@@ -22,6 +22,7 @@ export class FoodLimitApp {
               private authProvider: AuthProvider) {
     platform.ready().then(() => {
       statusBar.styleDefault();
+      statusBar.overlaysWebView(false)
       splashScreen.hide();
     });
 

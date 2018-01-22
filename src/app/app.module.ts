@@ -35,7 +35,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(FoodLimitApp),
+    IonicModule.forRoot(FoodLimitApp, {
+      statusbarPadding: false
+    }),
     IonicStorageModule.forRoot(),
     CustomFormsModule
   ],
