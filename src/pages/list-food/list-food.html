@@ -3,6 +3,10 @@
 <ion-content class="page-content" padding>
   <h3>Gestion de mes aliments</h3>
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list>
     <ion-item-sliding *ngFor="let food of _foodService.foods$ | async">
       <ion-item (click)="viewFood(food)">
@@ -23,10 +27,13 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-
-  <button ion-button color="primary" class="btn-fixed-bottom" full (click)="openModalAddFood()">Ajouter un aliment
-  </button>
 </ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar position="bottom">
+    <button ion-button color="primary" full (click)="openModalAddFood()">Ajouter un aliment</button>
+  </ion-toolbar>
+</ion-footer>
 
 <div id="modal-add-food" *ngIf="_modalAddFoodIsOpen" (click)="closeModalAddFood()">
   <button ion-button icon-only round color="light" id="btn-add-food-text" (click)="addFoodKeyboard()"

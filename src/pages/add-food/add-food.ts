@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController, ViewController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController, ViewController, LoadingController} from 'ionic-angular';
 import {Food} from "../../app/model/food.model";
 import {FoodService} from "../../app/providers/food.service";
 
@@ -23,7 +23,12 @@ export class AddFoodPage {
 
   private _food: Food;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public toastCtrl: ToastController, private _foodService: FoodService) {
+  constructor(public navCtrl: NavController,
+    public viewCtrl: ViewController,
+    public navParams: NavParams,
+    public toastCtrl: ToastController,
+    private _foodService: FoodService,
+    private loadingCtrl: LoadingController,) {
     this._food = new Food();
   }
 
@@ -43,14 +48,22 @@ export class AddFoodPage {
   }
 
   public _addFood(food: Food): void {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Ajout en cours ...'
+    });
+
     if (food.quantity > 1) {
       food.name = plural(food.name).toLowerCase();
     } else {
       food.name = food.name.toLowerCase();
     }
 
+    loading.present();
+
     this._foodService.createFood(food)
       .subscribe(res => {
+        loading.dismiss();
         this.navCtrl.pop();
       });
   }

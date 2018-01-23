@@ -31,7 +31,13 @@ export class ListFoodPage {
     private _datePipe: DatePipe,
     private loadingCtrl: LoadingController,
     private _changeDetectorRef: ChangeDetectorRef) {
-    this._foodService.loadFoods();
+    this._foodService.loadFoods().subscribe();
+  }
+
+  public doRefresh(refresher) {
+    this._foodService.loadFoods().subscribe(() => {
+      refresher.complete();
+    });
   }
 
   public openModalAddFood(): void {

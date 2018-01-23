@@ -21,8 +21,8 @@ export class FoodService {
   constructor(private http: Http, private authHttp: AuthHttp) {
   }
 
-  public loadFoods(): void {
-    this.authHttp.get(`${SERVER_URL}/foods`).subscribe((foodList) => {
+  public loadFoods(): Observable<any> {
+    return this.authHttp.get(`${SERVER_URL}/foods`).do((foodList) => {
       this._foodList = foodList.json();
       this.foods$.next(this._foodList);
     });

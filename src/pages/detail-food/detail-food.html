@@ -33,7 +33,20 @@
       <img width="200px" height="200px" src="{{_food?.picture}}" alt="{{_food?.name}}" />
     </ion-item>
   </ion-list>
-
-  <button ion-button color="light" class="btn-fixed-bottom" style="bottom: 60px" full (click)="editFood(_food)">Modifier aliment</button>
-  <button ion-button color="danger" class="btn-fixed-bottom" full (click)="deleteFood(_food)">Supprimer aliment</button>
 </ion-content>
+
+<ion-footer no-border text-center>
+  <ion-toolbar>
+    <ion-buttons left>
+
+      <button ion-button color="primary" icon-only clear large (click)="editFood(_food)">
+        Modifier
+      </button>
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button color="danger" icon-only clear large (click)="deleteFood(_food)">
+        Supprimer
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
