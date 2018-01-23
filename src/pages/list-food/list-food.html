@@ -6,7 +6,8 @@
   <ion-list>
     <ion-item-sliding *ngFor="let food of _foodService.foods$ | async">
       <ion-item (click)="viewFood(food)">
-        <p>{{food.quantity}} {{food.name}}</p> <p item-right>{{food.dlc | date:'dd/MM/yyyy'}}</p>
+        <p>{{food.quantity}} {{food.name}}</p>
+        <p item-right>{{food.dlc | date:'dd/MM/yyyy'}}</p>
       </ion-item>
 
       <ion-item-options side="right">
@@ -23,18 +24,21 @@
     </ion-item-sliding>
   </ion-list>
 
-  <button ion-button color="primary" class="btn-fixed-bottom" full (click)="openModalAddFood()">Ajouter un aliment</button>
+  <button ion-button color="primary" class="btn-fixed-bottom" full (click)="openModalAddFood()">Ajouter un aliment
+  </button>
 </ion-content>
 
-
 <div id="modal-add-food" *ngIf="_modalAddFoodIsOpen" (click)="closeModalAddFood()">
-  <button ion-button icon-only round color="light" id="btn-add-food-text" (click)="addFoodKeyboard()" class="btn-add-food">
+  <button ion-button icon-only round color="light" id="btn-add-food-text" (click)="addFoodKeyboard()"
+          class="btn-add-food">
     <ion-icon name="create"></ion-icon>
   </button>
-  <button ion-button icon-only round color="light" id="btn-add-food-audio" (click)="addFoodListening()" class="btn-add-food">
+  <button ion-button icon-only round color="light" id="btn-add-food-audio" (click)="addFoodListening()"
+          class="btn-add-food">
     <ion-icon name="mic"></ion-icon>
   </button>
-  <button ion-button icon-only round color="light" id="btn-add-food-scan" class="btn-add-food" (click)="addFoodScanBarcode()">
+  <button ion-button icon-only round color="light" id="btn-add-food-scan" class="btn-add-food"
+          (click)="addFoodScanBarcode()">
     <ion-icon name="qr-scanner"></ion-icon>
   </button>
 </div>

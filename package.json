@@ -31,6 +31,7 @@
     "cordova-ios": "4.5.3",
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-device": "^1.1.6",
+    "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-speechrecognition": "^1.1.2",
     "cordova-plugin-splashscreen": "^4.0.3",
     "cordova-plugin-statusbar": "^2.2.3",
@@ -61,7 +62,8 @@
       "cordova-plugin-speechrecognition": {},
       "phonegap-plugin-barcodescanner": {
         "CAMERA_USAGE_DESCRIPTION": " "
-      }
+      },
+      "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
       "android",
