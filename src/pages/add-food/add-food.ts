@@ -6,7 +6,8 @@ import {FoodService} from "../../app/providers/food.service";
 import plural from 'pluralize-fr';
 
 /**
- * Generated class for the AddFoodPage page.
+ * Generated class for the AddFoodPage pa
+ * ge.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.

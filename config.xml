@@ -99,4 +99,5 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
+    <plugin name="onesignal-cordova-plugin" spec="^2.2.5" />
 </widget>

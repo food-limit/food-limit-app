@@ -4,7 +4,8 @@ import "rxjs/add/operator/map";
 import {ReplaySubject, Observable} from "rxjs";
 import {Storage} from "@ionic/storage";
 import {JwtHelper, AuthHttp} from "angular2-jwt";
-import {SERVER_URL} from "../../config";
+import {ONE_SIGNAL_KEY_TAG, SERVER_URL} from "../../config";
+import {OneSignal} from "@ionic-native/onesignal";
 
 @Injectable()
 export class AuthProvider {
@@ -14,7 +15,8 @@ export class AuthProvider {
   constructor(private readonly http: Http,
               private readonly authHttp: AuthHttp,
               private readonly storage: Storage,
-              private readonly jwtHelper: JwtHelper) {
+              private readonly jwtHelper: JwtHelper,
+              private oneSignal: OneSignal) {
   }
 
   checkLogin() {
@@ -22,22 +24,34 @@ export class AuthProvider {
       if (jwt && !this.jwtHelper.isTokenExpired(jwt)) {
         this.authHttp.get(`${SERVER_URL}/authenticate`)
           .subscribe(() => this.authUser.next(jwt),
-            (err) => this.storage.remove('jwt').then(() => this.authUser.next(null)));
+            (err) => this.removeStorage())
       }
       else {
-        this.storage.remove('jwt').then(() => this.authUser.next(null));
+        this.removeStorage();
       }
+    });
+  }
+
+  removeStorage(){
+    this.storage.remove('jwt').then(() => {
+      this.authUser.next(null);
+      this.oneSignal.deleteTag(ONE_SIGNAL_KEY_TAG);
     });
   }
 
   login(values: any): Observable<any> {
     return this.http.post(`${SERVER_URL}/login`, values)
       .map(response => response.text())
-      .map(jwt => this.handleJwtResponse(jwt));
+      .map(jwt => this.handleJwtResponse(jwt))
+      .do(res => this.sendTagToOneSignal(values.username));
+  }
+
+  private sendTagToOneSignal(username: string){
+    this.oneSignal.sendTag(ONE_SIGNAL_KEY_TAG, username);
   }
 
   logout() {
-    this.storage.remove('jwt').then(() => this.authUser.next(null));
+    this.removeStorage();
   }
 
   signup(values: any): Observable<any> {
@@ -50,7 +64,8 @@ export class AuthProvider {
         else {
           return jwt;
         }
-      });
+      })
+      .do(res => this.sendTagToOneSignal(values.username));
   }
 
   private handleJwtResponse(jwt: string) {
@@ -58,5 +73,4 @@ export class AuthProvider {
       .then(() => this.authUser.next(jwt))
       .then(() => jwt);
   }
-
 }
