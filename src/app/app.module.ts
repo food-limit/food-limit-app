@@ -16,6 +16,7 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import {ListFoodPage} from "../pages/list-food/list-food";
 import {FoodService} from "./providers/food.service";
 import {SpeechRecognition} from "@ionic-native/speech-recognition";
+import {OneSignal} from "@ionic-native/onesignal";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, storage: Storage) {
   const authConfig = new AuthConfig({
@@ -61,7 +62,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
       deps: [Http, RequestOptions, Storage]
     },
     FoodService,
-    BarcodeScanner
+    BarcodeScanner,
+    OneSignal
   ],
 })
 export class AppModule {

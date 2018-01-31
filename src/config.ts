@@ -8,3 +8,7 @@ export const DEFAULT_PICTURE_URL = 'http://www.tipperarylibraries.ie/wp-content/
 export const EANDATA_API_KEY = 'B710BAFC5A2BCD23';
 export const GETTY_API_KEY = '43zf35744rzpdm36fb432avv';
 export const TOKEN_RECAST_AI = 'cabf947ea1a1e7722de3bffb7a29a399';
+
+export const ONE_SIGNAL_APP_ID = '6cd8795f-a260-4f96-9d69-45f529e517fd';
+export const GOOGLE_APP_ID = '697309202105';
+export const ONE_SIGNAL_KEY_TAG = 'username';

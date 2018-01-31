@@ -6,6 +6,9 @@ import {LoginPage} from "../pages/login/login";
 import {AuthProvider} from "../providers/auth/auth";
 import {ListFoodPage} from "../pages/list-food/list-food";
 
+import {GOOGLE_APP_ID, ONE_SIGNAL_APP_ID} from "../config";
+import {OneSignal} from "@ionic-native/onesignal";
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -19,11 +22,13 @@ export class FoodLimitApp {
   constructor(platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
-              private authProvider: AuthProvider) {
+              private authProvider: AuthProvider,
+              private oneSignal: OneSignal) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       statusBar.overlaysWebView(false)
       splashScreen.hide();
+      this.configOneSignal();
     });
 
     this.pages = [
@@ -50,6 +55,23 @@ export class FoodLimitApp {
 
   logout() {
     this.authProvider.logout();
+  }
+
+  private configOneSignal(){
+    // init oneSignal
+    this.oneSignal.startInit(ONE_SIGNAL_APP_ID, GOOGLE_APP_ID);
+
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+
+    // this.oneSignal.handleNotificationReceived().subscribe(() => {
+    //   // do something when notification is received
+    // });
+    //
+    // this.oneSignal.handleNotificationOpened().subscribe(() => {
+    //   // do something when a notification is opened
+    // });
+
+    this.oneSignal.endInit();
   }
 
 }
