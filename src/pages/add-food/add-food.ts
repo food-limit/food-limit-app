@@ -4,6 +4,7 @@ import {Food} from "../../app/model/food.model";
 import {FoodService} from "../../app/providers/food.service";
 
 import plural from 'pluralize-fr';
+import {PlaceService} from "../../app/providers/place.service";
 
 /**
  * Generated class for the AddFoodPage pa
@@ -28,8 +29,9 @@ export class AddFoodPage {
     public viewCtrl: ViewController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
+    private _placeService: PlaceService,
     private _foodService: FoodService,
-    private loadingCtrl: LoadingController,) {
+    private loadingCtrl: LoadingController) {
     this._food = new Food();
   }
 
@@ -62,7 +64,7 @@ export class AddFoodPage {
 
     loading.present();
 
-    this._foodService.createFood(food)
+    this._foodService.createFood(this._placeService.selectedPlace.id, food)
       .subscribe(res => {
         loading.dismiss();
         this.navCtrl.pop();

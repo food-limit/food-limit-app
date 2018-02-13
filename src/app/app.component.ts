@@ -8,6 +8,8 @@ import {ListFoodPage} from "../pages/list-food/list-food";
 
 import {GOOGLE_APP_ID, ONE_SIGNAL_APP_ID} from "../config";
 import {OneSignal} from "@ionic-native/onesignal";
+import {ListPlacePage} from "../pages/list-place/list-place";
+import {PlaceService} from "./providers/place.service";
 
 @Component({
   templateUrl: 'app.html'
@@ -17,12 +19,13 @@ export class FoodLimitApp {
 
   rootPage: any = null;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, hidden: Function, icon: string}>;
 
   constructor(platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
               private authProvider: AuthProvider,
+              private _placeService: PlaceService,
               private oneSignal: OneSignal) {
     platform.ready().then(() => {
       statusBar.styleDefault();
@@ -32,12 +35,13 @@ export class FoodLimitApp {
     });
 
     this.pages = [
-      { title: 'Gestion de mes aliments', component: ListFoodPage }
+      { title: 'Gestion de mes foyers', component: ListPlacePage, hidden: () => true , icon: "home"},
+      { title: 'Gestion de mes aliments', component: ListFoodPage, hidden: () => this._placeService.placeIsSelected(), icon: "cart" }
     ];
 
     authProvider.authUser.subscribe(jwt => {
       if (jwt) {
-        this.rootPage = ListFoodPage;
+        this.rootPage = ListPlacePage;
       }
       else {
         this.rootPage = LoginPage;

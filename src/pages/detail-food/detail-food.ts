@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import {Food} from "../../app/model/food.model";
 import {FoodService} from "../../app/providers/food.service";
+import {PlaceService} from "../../app/providers/place.service";
 
 /**
  * Generated class for the DetailFoodPage page.
@@ -21,7 +22,7 @@ export class DetailFoodPage {
 
   private _food: Food;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, private _foodService: FoodService) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, private _foodService: FoodService, private _placeService: PlaceService) {
 
   }
 
@@ -30,7 +31,7 @@ export class DetailFoodPage {
   }
 
   public deleteFood(): void {
-    this._foodService.deleteFood(this._food.id);
+    this._foodService.deleteFood(this._placeService.selectedPlace.id, this._food.id);
     this.navCtrl.pop();
   }
 
@@ -43,7 +44,7 @@ export class DetailFoodPage {
 
   private _loadFood(): void {
     if(this.navParams.get('id')) {
-      this._foodService.getFood(this.navParams.get('id'))
+      this._foodService.getFood(this._placeService.selectedPlace.id, this.navParams.get('id'))
         .subscribe(res => {
           this._food = res;
         });

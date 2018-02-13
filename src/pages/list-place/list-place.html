@@ -1,0 +1,15 @@
+<app-header [showNavigation]="true"></app-header>
+
+<ion-content class="page-content" padding>
+  <h3>Gestion des foyers</h3>
+
+  <ion-scroll scrollY="true" style="height: 80%; margin:0px; padding:0px;">
+    <ion-list>
+      <ion-item-sliding *ngFor="let place of _placeService.places$ | async">
+        <ion-item (click)="selectPlace(place)">
+          <p>{{place.name}}</p>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-scroll>
+</ion-content>

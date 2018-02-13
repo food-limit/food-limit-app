@@ -7,11 +7,12 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+      <p ion-item color="primary"><b>{{_placeService.placeIsSelected()?_placeService.selectedPlace.name:"Aucun foyer sélectionné"}}</b></p>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [hidden]="!p.hidden()">
+        <ion-icon name="{{p.icon}}" style="margin-right: 4px"></ion-icon> {{p.title}}
       </button>
-      <button menuClose ion-item (click)="logout()">
-        Se déconnecter
+      <button menuClose ion-item (click)="logout()" style="color:#FF6153">
+        <ion-icon name="exit" style="margin-right: 4px"></ion-icon> Se déconnecter
       </button>
     </ion-list>
   </ion-content>

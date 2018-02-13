@@ -17,6 +17,8 @@ import {ListFoodPage} from "../pages/list-food/list-food";
 import {FoodService} from "./providers/food.service";
 import {SpeechRecognition} from "@ionic-native/speech-recognition";
 import {OneSignal} from "@ionic-native/onesignal";
+import {PlaceService} from "./providers/place.service";
+import {ListPlacePage} from "../pages/list-place/list-place";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, storage: Storage) {
   const authConfig = new AuthConfig({
@@ -30,6 +32,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
     FoodLimitApp,
     AppHeaderComponent,
     ListFoodPage,
+    ListPlacePage,
     LoginPage,
     SignupPage
   ],
@@ -46,6 +49,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
   entryComponents: [
     AppHeaderComponent,
     FoodLimitApp,
+    ListPlacePage,
     ListFoodPage,
     LoginPage,
     SignupPage
@@ -61,6 +65,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions, Storage]
     },
+    PlaceService,
     FoodService,
     BarcodeScanner,
     OneSignal

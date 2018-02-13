@@ -1,4 +1,4 @@
-//export const SERVER_URL = "http://localhost:8080";
+// export const SERVER_URL = "http://localhost:8080";
 export const SERVER_URL = "https://food-limit-api.herokuapp.com";
 
 export const EANDARA_API_URL = "https://eandata.com/feed/?v=3";
