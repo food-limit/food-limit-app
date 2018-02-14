@@ -5,11 +5,32 @@
 
   <ion-scroll scrollY="true" style="height: 80%; margin:0px; padding:0px;">
     <ion-list>
+      <ion-item *ngIf="_placeService.places$.value.length === 0">
+        <p>Vous ne possedez aucun foyer.</p>
+      </ion-item>
       <ion-item-sliding *ngFor="let place of _placeService.places$ | async">
         <ion-item (click)="selectPlace(place)">
           <p>{{place.name}}</p>
         </ion-item>
+
+        <ion-item-options side="right">
+          <button ion-button icon-only color="light" (click)="viewPlace(place)">
+            <ion-icon name="eye"></ion-icon>
+          </button>
+          <button ion-button icon-only color="light" (click)="editPlace(place)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button ion-button icon-only color="danger" (click)="deletePlace(place)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
       </ion-item-sliding>
     </ion-list>
   </ion-scroll>
 </ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar position="bottom">
+    <button ion-button color="primary" full (click)="createPlace()">Ajouter un foyer</button>
+  </ion-toolbar>
+</ion-footer>

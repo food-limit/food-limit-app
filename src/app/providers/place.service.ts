@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {Place} from "../model/place.model";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Observable} from "rxjs/Observable";
-import {Http} from "@angular/http";
 import {SERVER_URL} from '../../config';
 import {AuthHttp} from "angular2-jwt";
 import 'rxjs/add/operator/do';

@@ -26,4 +26,20 @@ export class ListPlacePage {
     this._placeService.selectedPlace = place;
     this.navCtrl.setRoot(ListFoodPage);
   }
+
+  public createPlace(place: Place): void {
+    this.navCtrl.push("AddPlacePage");
+  }
+
+  public deletePlace(place: Place): void {
+    this._placeService.deletePlace(place.id);
+  }
+
+  public editPlace(place: Place): void {
+
+  }
+
+  public viewPlace(place: Place): void {
+
+  }
 }
