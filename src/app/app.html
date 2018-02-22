@@ -7,16 +7,27 @@
 
   <ion-content>
     <ion-list>
-      <p ion-item color="primary">{{_placeService.placeIsSelected()?_placeService.selectedPlace.name:"Aucun foyer sélectionné"}}</p>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [hidden]="!p.hidden()">
+      <ion-list-header class="ion-list-header">
+        <ion-icon name="medical" style="margin-right: 4px;"></ion-icon> Général
+      </ion-list-header>
+      <button menuClose ion-item (click)="openPage(pages[0])" [hidden]="!pages[0].hidden()">
+        <ion-icon name="{{pages[0].icon}}" style="margin-right: 4px"></ion-icon> {{pages[0].title}}
+      </button>
+      <ion-list-header class="ion-list-header" *ngIf="_placeService.placeIsSelected()">
+        <ion-icon name="home" style="margin-right: 4px"></ion-icon> {{_placeService.placeIsSelected()?_placeService.selectedPlace.name:"Aucun foyer sélectionné"}}
+      </ion-list-header>
+      <button menuClose ion-item *ngFor="let p of pages.slice(1)" (click)="openPage(p)" [hidden]="!p.hidden()">
         <ion-icon name="{{p.icon}}" style="margin-right: 4px"></ion-icon> {{p.title}}
       </button>
-      <button menuClose ion-item (click)="logout()" class="btn-logout">
-        <ion-icon name="exit" style="margin-right: 4px"></ion-icon> Se déconnecter
-      </button>
+      <ion-footer no-shadow>
+        <ion-toolbar position="bottom">
+          <button menuClose ion-item (click)="logout()" class="btn-logout">
+            <ion-icon name="close" style="margin-right: 4px"></ion-icon> Se déconnecter
+          </button>
+        </ion-toolbar>
+      </ion-footer>
     </ion-list>
   </ion-content>
-
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

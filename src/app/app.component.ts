@@ -35,7 +35,7 @@ export class FoodLimitApp {
     });
 
     this.pages = [
-      { title: 'Gestion de mes foyers', component: ListPlacePage, hidden: () => true , icon: "home"},
+      { title: 'Gestion de mes foyers', component: ListPlacePage, hidden: () => true , icon: "logo-buffer"},
       { title: 'Gestion de mes aliments', component: ListFoodPage, hidden: () => this._placeService.placeIsSelected(), icon: "cart" }
     ];
 

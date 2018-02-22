@@ -6,6 +6,7 @@ import {Storage} from "@ionic/storage";
 import {JwtHelper, AuthHttp} from "angular2-jwt";
 import {ONE_SIGNAL_KEY_TAG, SERVER_URL} from "../../config";
 import {OneSignal} from "@ionic-native/onesignal";
+import {PlaceService} from "../../app/providers/place.service";
 
 @Injectable()
 export class AuthProvider {
@@ -16,7 +17,8 @@ export class AuthProvider {
               private readonly authHttp: AuthHttp,
               private readonly storage: Storage,
               private readonly jwtHelper: JwtHelper,
-              private oneSignal: OneSignal) {
+              private oneSignal: OneSignal,
+              private placeService: PlaceService) {
   }
 
   checkLogin() {
@@ -52,6 +54,8 @@ export class AuthProvider {
 
   logout() {
     this.removeStorage();
+    this.placeService.selectedPlace = null;
+
   }
 
   signup(values: any): Observable<any> {

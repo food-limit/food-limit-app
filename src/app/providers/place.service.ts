@@ -33,6 +33,9 @@ export class PlaceService {
     this.authHttp.delete(`${SERVER_URL}/places/${placeId}`)
       .subscribe(() => {
         this._placeList = this._placeList.filter(f => f.id != placeId);
+        if(this.selectedPlace && placeId === this.selectedPlace.id) {
+          this.selectedPlace = null;
+        }
         this.places$.next(this._placeList);
       });
   }

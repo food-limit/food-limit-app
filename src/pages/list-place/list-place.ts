@@ -36,10 +36,17 @@ export class ListPlacePage {
   }
 
   public editPlace(place: Place): void {
-
+    this.navCtrl.push("EditPlacePage", {
+      'id': place.id,
+      callback: () => new Promise((resolve, reject) => {
+        resolve();
+      })
+    });
   }
 
   public viewPlace(place: Place): void {
-
+    this.navCtrl.push("DetailPlacePage", {
+      'id': place.id
+    });
   }
 }
