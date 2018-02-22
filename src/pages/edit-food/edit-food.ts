@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import {FoodService} from "../../app/providers/food.service";
 import {Food} from "../../app/model/food.model";
+import {PlaceService} from "../../app/providers/place.service";
 
 @IonicPage()
 @Component({
@@ -15,14 +16,14 @@ export class EditFoodPage {
   private _food: Food;
   private _callback: Function;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, private _foodService: FoodService) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, private _foodService: FoodService, private _placeService: PlaceService) {
 
   }
 
   ionViewDidLoad() {
     if(this.navParams.get('id')) {
       this._callback = this.navParams.get('callback');
-      this._foodService.getFood(this.navParams.get('id'))
+      this._foodService.getFood(this._placeService.selectedPlace.id, this.navParams.get('id'))
         .subscribe(res => {
           this._food = res;
         });
@@ -37,7 +38,7 @@ export class EditFoodPage {
       picture: this._food.picture,
       dlc: food.dlc
     });
-    this._foodService.updateFood(this._food)
+    this._foodService.updateFood(this._placeService.selectedPlace.id, this._food)
       .subscribe(res => {
         this._callback().then(() => this.navCtrl.pop());
       });

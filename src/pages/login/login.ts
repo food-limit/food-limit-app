@@ -3,7 +3,6 @@ import {LoadingController, NavController, ToastController} from 'ionic-angular';
 import {SignupPage} from "../signup/signup";
 import {AuthProvider} from "../../providers/auth/auth";
 import "rxjs/add/operator/finally";
-import {OneSignal} from "@ionic-native/onesignal";
 
 @Component({
   selector: 'page-login',
@@ -14,8 +13,7 @@ export class LoginPage {
   constructor(private readonly navCtrl: NavController,
               private readonly loadingCtrl: LoadingController,
               private readonly authProvider: AuthProvider,
-              private readonly toastCtrl: ToastController,
-              private oneSignal: OneSignal) {
+              private readonly toastCtrl: ToastController) {
   }
 
   signup() {

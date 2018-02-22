@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle *ngIf="showNavigation">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <div class="app-title">Food Limit</div>
+      <img class="app-logo" alt="logo" src="assets/images/logo.png">
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>Modifier mon foyer</h3>
+
+  <form #form="ngForm" (ngSubmit)="_updatePlace(form.value)" novalidate *ngIf="_place">
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary">Nom</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="_place.name" required #name="ngModel"
+                   [class.invalid]="name.errors && name.dirty"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <button type="submit" ion-button color="primary" class="btn-fixed-bottom" full [disabled]="!form.valid">Modifier foyer</button>
+  </form>
+</ion-content>

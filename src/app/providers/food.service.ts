@@ -21,27 +21,27 @@ export class FoodService {
   constructor(private http: Http, private authHttp: AuthHttp) {
   }
 
-  public loadFoods(): Observable<any> {
-    return this.authHttp.get(`${SERVER_URL}/foods`).do((foodList) => {
+  public loadFoods(placeId: number): Observable<any> {
+    return this.authHttp.get(`${SERVER_URL}/places/${placeId}/foods`).do((foodList) => {
       this._foodList = foodList.json();
       this.foods$.next(this._foodList);
     });
   }
 
-  public getFood(foodId: number): Observable<Food> {
-    return this.authHttp.get(`${SERVER_URL}/foods/${foodId}`)
+  public getFood(placeId: number, foodId: number): Observable<Food> {
+    return this.authHttp.get(`${SERVER_URL}/places/${placeId}/foods/${foodId}`)
       .map(res => res.json());
   }
 
-  public deleteFood(foodId: number): void {
-    this.authHttp.delete(`${SERVER_URL}/foods/${foodId}`)
+  public deleteFood(placeId: number, foodId: number): void {
+    this.authHttp.delete(`${SERVER_URL}/places/${placeId}/foods/${foodId}`)
       .subscribe(() => {
         this._foodList = this._foodList.filter(f => f.id != foodId);
         this.foods$.next(this._foodList);
       });
   }
 
-  public createFood(food: Food): Observable<Food> {
+  public createFood(placeId: number, food: Food): Observable<Food> {
     return this.getFoodPictures(food.name)
       .pipe(
         mergeMap(res => {
@@ -50,7 +50,7 @@ export class FoodService {
           } else {
             food.picture = DEFAULT_PICTURE_URL;
           }
-          return this.authHttp.post(`${SERVER_URL}/foods`, food)
+          return this.authHttp.post(`${SERVER_URL}/places/${placeId}/foods`, food)
             .map(res => res.json())
             .do(res => {
               this._foodList.push(Object.assign(new Food(), res));
@@ -60,8 +60,8 @@ export class FoodService {
       )
   }
 
-  public updateFood(food: Food): Observable<Food> {
-    return this.authHttp.put(`${SERVER_URL}/foods/${food.id}`, food)
+  public updateFood(placeId: number, food: Food): Observable<Food> {
+    return this.authHttp.put(`${SERVER_URL}/places/${placeId}/foods/${food.id}`, food)
       .map(res => res.json())
       .do(res => {
         this._foodList.forEach((f, index) => {

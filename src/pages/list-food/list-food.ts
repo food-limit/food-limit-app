@@ -5,6 +5,7 @@ import { Food } from "../../app/model/food.model";
 import { SpeechRecognition } from "@ionic-native/speech-recognition";
 import { DatePipe } from '@angular/common';
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner';
+import {PlaceService} from "../../app/providers/place.service";
 
 /**
  * Generated class for the ListFoodPage page.
@@ -25,17 +26,18 @@ export class ListFoodPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private _foodService: FoodService,
+    private _placeService: PlaceService,
     private _barcode: BarcodeScanner,
     private _speechRecognition: SpeechRecognition,
     private readonly toastCtrl: ToastController,
     private _datePipe: DatePipe,
     private loadingCtrl: LoadingController,
     private _changeDetectorRef: ChangeDetectorRef) {
-    this._foodService.loadFoods().subscribe();
+    this._foodService.loadFoods(this._placeService.selectedPlace.id).subscribe();
   }
 
   public doRefresh(refresher) {
-    this._foodService.loadFoods().subscribe(() => {
+    this._foodService.loadFoods(this._placeService.selectedPlace.id).subscribe(() => {
       refresher.complete();
     });
   }
@@ -64,7 +66,7 @@ export class ListFoodPage {
   }
 
   public deleteFood(food: Food): void {
-    this._foodService.deleteFood(food.id);
+    this._foodService.deleteFood(this._placeService.selectedPlace.id, food.id);
   }
 
   private _getPermissionRecognition() {
@@ -86,7 +88,7 @@ export class ListFoodPage {
         food.dlc = this._datePipe.transform(res.json().results.entities.datetime[0].iso, 'yyyy-MM-dd');
 
         if (food.quantity && food.name && food.dlc) {
-          this._foodService.createFood(food).subscribe(res => {
+          this._foodService.createFood(this._placeService.selectedPlace.id, food).subscribe(res => {
             this._refreshPage();
           });
         } else {
