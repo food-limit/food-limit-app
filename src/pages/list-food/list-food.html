@@ -10,7 +10,7 @@
   <ion-scroll scrollY="true" style="height: 80%; margin:0px; padding:0px;">
     <ion-list>
       <ion-item *ngIf="_foodService.foods$.value.length === 0">
-        <p>Le foyer ne contient aucun alliment...</p>
+        <p>Le foyer ne contient aucun aliment...</p>
       </ion-item>
       <ion-item-sliding *ngFor="let food of _foodService.foods$ | async">
 
