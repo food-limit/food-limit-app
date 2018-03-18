@@ -84,7 +84,7 @@ export class ListFoodPage {
       this._foodService.nlpToAddFood(matches[0]).subscribe(res => {
         let food: Food = new Food();
         food.quantity = res.json().results.entities.number[0].scalar;
-        food.name = (res.json().entities.food.value).toLowerCase();
+        food.name = (res.json().results.entities.food[0].value).toLowerCase();
         food.dlc = this._datePipe.transform(res.json().results.entities.datetime[0].iso, 'yyyy-MM-dd');
 
         if (food.quantity && food.name && food.dlc) {
